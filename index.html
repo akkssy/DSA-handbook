@@ -244,32 +244,32 @@
             <div class="filter-section">
                 <span class="filter-label">Difficulty</span>
                 <div class="filter-buttons" id="difficultyFilters">
-                    <button class="filter-btn active" data-difficulty="all" onclick="setDifficultyFilter('all')">All</button>
-                    <button class="filter-btn easy" data-difficulty="easy" onclick="setDifficultyFilter('easy')">Easy</button>
-                    <button class="filter-btn medium" data-difficulty="medium" onclick="setDifficultyFilter('medium')">Medium</button>
-                    <button class="filter-btn hard" data-difficulty="hard" onclick="setDifficultyFilter('hard')">Hard</button>
+                    <button class="filter-btn active" data-difficulty="all" type="button" onclick="setDifficultyFilter('all')">All</button>
+                    <button class="filter-btn easy" data-difficulty="easy" type="button" onclick="setDifficultyFilter('easy')">Easy</button>
+                    <button class="filter-btn medium" data-difficulty="medium" type="button" onclick="setDifficultyFilter('medium')">Medium</button>
+                    <button class="filter-btn hard" data-difficulty="hard" type="button" onclick="setDifficultyFilter('hard')">Hard</button>
                 </div>
             </div>
             <div class="filter-section">
                 <span class="filter-label">Pattern</span>
                 <div class="filter-buttons" id="patternFilters">
-                    <button class="filter-btn active" data-pattern="all" onclick="setPatternFilter('all')">All</button>
-                    <button class="filter-btn" data-pattern="array" onclick="setPatternFilter('array')">Array</button>
-                    <button class="filter-btn" data-pattern="hash-map" onclick="setPatternFilter('hash-map')">Hash Map</button>
-                    <button class="filter-btn" data-pattern="two-pointers" onclick="setPatternFilter('two-pointers')">Two Pointers</button>
-                    <button class="filter-btn" data-pattern="sliding-window" onclick="setPatternFilter('sliding-window')">Sliding Window</button>
-                    <button class="filter-btn" data-pattern="binary-search" onclick="setPatternFilter('binary-search')">Binary Search</button>
-                    <button class="filter-btn" data-pattern="linked-list" onclick="setPatternFilter('linked-list')">Linked List</button>
-                    <button class="filter-btn" data-pattern="stack" onclick="setPatternFilter('stack')">Stack</button>
-                    <button class="filter-btn" data-pattern="tree" onclick="setPatternFilter('tree')">Tree</button>
-                    <button class="filter-btn" data-pattern="graph" onclick="setPatternFilter('graph')">Graph</button>
-                    <button class="filter-btn" data-pattern="dp" onclick="setPatternFilter('dp')">DP</button>
-                    <button class="filter-btn" data-pattern="backtracking" onclick="setPatternFilter('backtracking')">Backtracking</button>
-                    <button class="filter-btn" data-pattern="heap" onclick="setPatternFilter('heap')">Heap</button>
-                    <button class="filter-btn" data-pattern="greedy" onclick="setPatternFilter('greedy')">Greedy</button>
-                    <button class="filter-btn" data-pattern="bit" onclick="setPatternFilter('bit')">Bit Manipulation</button>
-                    <button class="filter-btn" data-pattern="trie" onclick="setPatternFilter('trie')">Trie</button>
-                    <button class="filter-btn" data-pattern="union-find" onclick="setPatternFilter('union-find')">Union Find</button>
+                    <button class="filter-btn active" data-pattern="all" type="button" onclick="setPatternFilter('all')">All</button>
+                    <button class="filter-btn" data-pattern="array" type="button" onclick="setPatternFilter('array')">Array</button>
+                    <button class="filter-btn" data-pattern="hash-map" type="button" onclick="setPatternFilter('hash-map')">Hash Map</button>
+                    <button class="filter-btn" data-pattern="two-pointers" type="button" onclick="setPatternFilter('two-pointers')">Two Pointers</button>
+                    <button class="filter-btn" data-pattern="sliding-window" type="button" onclick="setPatternFilter('sliding-window')">Sliding Window</button>
+                    <button class="filter-btn" data-pattern="binary-search" type="button" onclick="setPatternFilter('binary-search')">Binary Search</button>
+                    <button class="filter-btn" data-pattern="linked-list" type="button" onclick="setPatternFilter('linked-list')">Linked List</button>
+                    <button class="filter-btn" data-pattern="stack" type="button" onclick="setPatternFilter('stack')">Stack</button>
+                    <button class="filter-btn" data-pattern="tree" type="button" onclick="setPatternFilter('tree')">Tree</button>
+                    <button class="filter-btn" data-pattern="graph" type="button" onclick="setPatternFilter('graph')">Graph</button>
+                    <button class="filter-btn" data-pattern="dp" type="button" onclick="setPatternFilter('dp')">DP</button>
+                    <button class="filter-btn" data-pattern="backtracking" type="button" onclick="setPatternFilter('backtracking')">Backtracking</button>
+                    <button class="filter-btn" data-pattern="heap" type="button" onclick="setPatternFilter('heap')">Heap</button>
+                    <button class="filter-btn" data-pattern="greedy" type="button" onclick="setPatternFilter('greedy')">Greedy</button>
+                    <button class="filter-btn" data-pattern="bit" type="button" onclick="setPatternFilter('bit')">Bit Manipulation</button>
+                    <button class="filter-btn" data-pattern="trie" type="button" onclick="setPatternFilter('trie')">Trie</button>
+                    <button class="filter-btn" data-pattern="union-find" type="button" onclick="setPatternFilter('union-find')">Union Find</button>
                 </div>
             </div>
             <div class="filter-stats">
@@ -471,9 +471,9 @@
 
                 <h3>💻 Implementation</h3>
                 <div class="code-tabs">
-                    <button class="code-tab active" onclick="switchTab(this, 'arrays-python')">Python</button>
-                    <button class="code-tab" onclick="switchTab(this, 'arrays-java')">Java</button>
-                    <button class="code-tab" onclick="switchTab(this, 'arrays-cpp')">C++</button>
+                    <button class="code-tab active" type="button" onclick="switchTab(this, 'arrays-python')">Python</button>
+                    <button class="code-tab" type="button" onclick="switchTab(this, 'arrays-java')">Java</button>
+                    <button class="code-tab" type="button" onclick="switchTab(this, 'arrays-cpp')">C++</button>
                 </div>
                 <div class="code-block">
                     <code class="code-content active" id="arrays-python"><span class="comment"># Python Array Operations</span>
@@ -660,9 +660,9 @@ vector&lt;<span class="keyword">int</span>&gt; <span class="function">twoSumSort
 
 
                             <div class="code-tabs">
-                                <button class="code-tab active" onclick="switchTab(this, 'twosum-py')">Python</button>
-                                <button class="code-tab" onclick="switchTab(this, 'twosum-java')">Java</button>
-                                <button class="code-tab" onclick="switchTab(this, 'twosum-cpp')">C++</button>
+                                <button class="code-tab active" type="button" onclick="switchTab(this, 'twosum-py')">Python</button>
+                                <button class="code-tab" type="button" onclick="switchTab(this, 'twosum-java')">Java</button>
+                                <button class="code-tab" type="button" onclick="switchTab(this, 'twosum-cpp')">C++</button>
                             </div>
                             <div class="code-block">
                                 <code class="code-content active" id="twosum-py"><span class="keyword">def</span> <span class="function">twoSum</span>(nums, target):
@@ -728,8 +728,8 @@ vector&lt;<span class="keyword">int</span>&gt; <span class="function">twoSumSort
 
 
                             <div class="code-tabs">
-                                <button class="code-tab active" onclick="switchTab(this, 'stock-py')">Python</button>
-                                <button class="code-tab" onclick="switchTab(this, 'stock-java')">Java</button>
+                                <button class="code-tab active" type="button" onclick="switchTab(this, 'stock-py')">Python</button>
+                                <button class="code-tab" type="button" onclick="switchTab(this, 'stock-java')">Java</button>
                             </div>
                             <div class="code-block">
                                 <code class="code-content active" id="stock-py"><span class="keyword">def</span> <span class="function">maxProfit</span>(prices):
@@ -941,8 +941,8 @@ vector&lt;<span class="keyword">int</span>&gt; <span class="function">twoSumSort
 
                 <h3>💻 Common String Operations</h3>
                 <div class="code-tabs">
-                    <button class="code-tab active" onclick="switchTab(this, 'string-py')">Python</button>
-                    <button class="code-tab" onclick="switchTab(this, 'string-java')">Java</button>
+                    <button class="code-tab active" type="button" onclick="switchTab(this, 'string-py')">Python</button>
+                    <button class="code-tab" type="button" onclick="switchTab(this, 'string-java')">Java</button>
                 </div>
                 <div class="code-block">
                     <code class="code-content active" id="string-py"><span class="comment"># Python String Operations</span>
@@ -1289,8 +1289,8 @@ sb.append(<span class="string">"!"</span>);
 
                 <h3>💻 Implementations</h3>
                 <div class="code-tabs">
-                    <button class="code-tab active" onclick="switchTab(this, 'sort-merge')">Merge Sort</button>
-                    <button class="code-tab" onclick="switchTab(this, 'sort-quick')">Quick Sort</button>
+                    <button class="code-tab active" type="button" onclick="switchTab(this, 'sort-merge')">Merge Sort</button>
+                    <button class="code-tab" type="button" onclick="switchTab(this, 'sort-quick')">Quick Sort</button>
                 </div>
                 <div class="code-block">
                     <code class="code-content active" id="sort-merge"><span class="comment"># Merge Sort - O(n log n) time, O(n) space</span>
@@ -1815,7 +1815,7 @@ sb.append(<span class="string">"!"</span>);
 
                 <h3>💻 Sliding Window Template</h3>
                 <div class="code-tabs">
-                    <button class="code-tab active" onclick="switchTab(this, 'slidingwindow-py')">Python</button>
+                    <button class="code-tab active" type="button" onclick="switchTab(this, 'slidingwindow-py')">Python</button>
                 </div>
                 <div class="code-block">
                     <code class="code-content active" id="slidingwindow-py"><span class="comment"># Variable size sliding window template</span>
@@ -1930,7 +1930,7 @@ sb.append(<span class="string">"!"</span>);
 
                 <h3>💻 Two Pointers Templates</h3>
                 <div class="code-tabs">
-                    <button class="code-tab active" onclick="switchTab(this, 'twoptr-py')">Python</button>
+                    <button class="code-tab active" type="button" onclick="switchTab(this, 'twoptr-py')">Python</button>
                 </div>
                 <div class="code-block">
                     <code class="code-content active" id="twoptr-py"><span class="comment"># Pattern 1: Opposite ends (sorted array)</span>
@@ -2095,8 +2095,8 @@ sb.append(<span class="string">"!"</span>);
 
                 <h3>💻 Implementation</h3>
                 <div class="code-tabs">
-                    <button class="code-tab active" onclick="switchTab(this, 'll-py')">Python</button>
-                    <button class="code-tab" onclick="switchTab(this, 'll-java')">Java</button>
+                    <button class="code-tab active" type="button" onclick="switchTab(this, 'll-py')">Python</button>
+                    <button class="code-tab" type="button" onclick="switchTab(this, 'll-java')">Java</button>
                 </div>
                 <div class="code-block">
                     <code class="code-content active" id="ll-py"><span class="comment"># Singly Linked List Implementation</span>
@@ -4061,7 +4061,7 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
 
                 <h3>💻 Implementation</h3>
                 <div class="code-tabs">
-                    <button class="code-tab active" onclick="switchTab(this, 'trie-py')">Python</button>
+                    <button class="code-tab active" type="button" onclick="switchTab(this, 'trie-py')">Python</button>
                 </div>
                 <div class="code-block">
                     <code class="code-content active" id="trie-py"><span class="keyword">class</span> <span class="class-name">TrieNode</span>:
@@ -4197,7 +4197,7 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
 
                 <h3>�� Implementation</h3>
                 <div class="code-tabs">
-                    <button class="code-tab active" onclick="switchTab(this, 'uf-py')">Python</button>
+                    <button class="code-tab active" type="button" onclick="switchTab(this, 'uf-py')">Python</button>
                 </div>
                 <div class="code-block">
                     <code class="code-content active" id="uf-py"><span class="keyword">class</span> <span class="class-name">UnionFind</span>:
@@ -4449,7 +4449,7 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
 
                 <h3>💻 Common Patterns</h3>
                 <div class="code-tabs">
-                    <button class="code-tab active" onclick="switchTab(this, 'bit-py')">Python</button>
+                    <button class="code-tab active" type="button" onclick="switchTab(this, 'bit-py')">Python</button>
                 </div>
                 <div class="code-block">
                     <code class="code-content active" id="bit-py"><span class="comment"># Count set bits (1s)</span>
@@ -4779,19 +4779,26 @@ clear_bit = <span class="keyword">lambda</span> n, i: n & ~(<span class="number"
 
         // Switch code tabs (Python/Java/C++)
         function switchTab(button, tabId) {
-            // Get the code block container
-            const codeBlock = button.closest('.section-body') || button.parentElement.parentElement;
+            // Get the tabs container (parent of button)
+            const tabsContainer = button.parentElement;
             
-            // Remove active from all tabs in this section
-            const tabs = button.parentElement.querySelectorAll('.code-tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
+            // Get the code block (next sibling of tabs container)
+            const codeBlock = tabsContainer.nextElementSibling;
+            
+            // Remove active from all tabs
+            tabsContainer.querySelectorAll('.code-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
             
             // Add active to clicked tab
             button.classList.add('active');
             
-            // Hide all code content in this section
-            const codeContents = codeBlock.querySelectorAll('.code-content');
-            codeContents.forEach(code => code.classList.remove('active'));
+            // Hide all code content in the code block
+            if (codeBlock) {
+                codeBlock.querySelectorAll('.code-content').forEach(code => {
+                    code.classList.remove('active');
+                });
+            }
             
             // Show the selected code content
             const selectedCode = document.getElementById(tabId);
@@ -4826,6 +4833,7 @@ clear_bit = <span class="keyword">lambda</span> n, i: n & ~(<span class="number"
 
         // Set difficulty filter
         function setDifficultyFilter(difficulty) {
+            event.preventDefault();
             currentDifficulty = difficulty;
             // Update button states
             document.querySelectorAll('#difficultyFilters .filter-btn').forEach(btn => {
@@ -4837,6 +4845,7 @@ clear_bit = <span class="keyword">lambda</span> n, i: n & ~(<span class="number"
 
         // Set pattern filter
         function setPatternFilter(pattern) {
+            event.preventDefault();
             currentPattern = pattern;
             // Update button states
             document.querySelectorAll('#patternFilters .filter-btn').forEach(btn => {
