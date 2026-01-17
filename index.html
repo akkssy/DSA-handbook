@@ -1194,7 +1194,39 @@ sb.append(<span class="string">"!"</span>);
                         </div>
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Sort an array without using built-in sort functions.</p>
-                            <p><strong>Solution:</strong> Implement Merge Sort or Quick Sort</p>
+                            <p><strong>Pattern:</strong> Implement Merge Sort for O(n log n) guaranteed performance</p>
+                            <p><strong>💡 Key Insight:</strong> Merge Sort divides array in half, recursively sorts each half, then merges. QuickSort is faster on average but has O(n²) worst case.</p>
+
+                            <div class="code-block">
+                                <code class="code-content active"><span class="keyword">def</span> <span class="function">sortArray</span>(nums):
+    <span class="comment"># Merge Sort Implementation</span>
+    <span class="keyword">if len</span>(nums) <= <span class="number">1</span>:
+        <span class="keyword">return</span> nums
+    
+    mid = <span class="keyword">len</span>(nums) // <span class="number">2</span>
+    left = sortArray(nums[:mid])
+    right = sortArray(nums[mid:])
+    
+    <span class="keyword">return</span> merge(left, right)
+
+<span class="keyword">def</span> <span class="function">merge</span>(left, right):
+    result = []
+    i = j = <span class="number">0</span>
+    
+    <span class="keyword">while</span> i < <span class="keyword">len</span>(left) <span class="keyword">and</span> j < <span class="keyword">len</span>(right):
+        <span class="keyword">if</span> left[i] <= right[j]:
+            result.append(left[i])
+            i += <span class="number">1</span>
+        <span class="keyword">else</span>:
+            result.append(right[j])
+            j += <span class="number">1</span>
+    
+    result.extend(left[i:])
+    result.extend(right[j:])
+    <span class="keyword">return</span> result
+
+<span class="comment"># Time: O(n log n), Space: O(n)</span></code>
+                            </div>
                             <div class="link-list">
                                 <a href="https://www.youtube.com/watch?v=MsYZSinhuFo" target="_blank" class="link-btn">📺 NeetCode Solution</a>
                             </div>
@@ -1376,7 +1408,32 @@ sb.append(<span class="string">"!"</span>);
                             <a href="https://leetcode.com/problems/binary-search/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
-                            <p><strong>Problem:</strong> Basic binary search implementation</p>
+                            <p><strong>Problem:</strong> Given a sorted array and target, return index if found, else -1.</p>
+                            <p><strong>Pattern:</strong> Classic Binary Search - divide search space in half each iteration</p>
+                            <p><strong>💡 Key Insight:</strong> Compare target with middle element. If target is smaller, search left half; if larger, search right half.</p>
+
+                            <div class="code-block">
+                                <code class="code-content active"><span class="keyword">def</span> <span class="function">search</span>(nums, target):
+    left, right = <span class="number">0</span>, <span class="keyword">len</span>(nums) - <span class="number">1</span>
+    
+    <span class="keyword">while</span> left <= right:
+        mid = (left + right) // <span class="number">2</span>  <span class="comment"># or left + (right - left) // 2 to avoid overflow</span>
+        
+        <span class="keyword">if</span> nums[mid] == target:
+            <span class="keyword">return</span> mid
+        <span class="keyword">elif</span> nums[mid] < target:
+            left = mid + <span class="number">1</span>   <span class="comment"># Target in right half</span>
+        <span class="keyword">else</span>:
+            right = mid - <span class="number">1</span>  <span class="comment"># Target in left half</span>
+    
+    <span class="keyword">return</span> -<span class="number">1</span>  <span class="comment"># Target not found</span>
+
+<span class="comment"># Time: O(log n), Space: O(1)</span>
+
+<span class="comment"># Example: nums = [-1,0,3,5,9,12], target = 9</span>
+<span class="comment"># Step 1: mid=2, nums[2]=3 < 9, search right</span>
+<span class="comment"># Step 2: mid=4, nums[4]=9 == 9, return 4</span></code>
+                            </div>
                             <div class="link-list">
                                 <a href="https://www.youtube.com/watch?v=s4DPM8ct1pI" target="_blank" class="link-btn">📺 NeetCode Solution</a>
                             </div>
