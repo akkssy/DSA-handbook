@@ -155,6 +155,14 @@
             .topic-grid { grid-template-columns: 1fr; }
         }
 
+        
+        /* Thought Process */
+        .thought-process { background: linear-gradient(135deg, #fef3c7 0%, #fef9c3 100%); border-radius: var(--radius); padding: 1rem 1.5rem; margin: 1rem 0; border-left: 4px solid var(--warning); }
+        .thought-process h4 { color: #92400e; margin-bottom: 0.75rem; font-size: 1rem; }
+        .thought-process ol { margin-left: 1.25rem; color: #78350f; }
+        .thought-process li { margin-bottom: 0.5rem; font-size: 0.95rem; }
+        .thought-process strong { color: #92400e; }
+
         /* Print Styles */
         @media print {
             .nav, .toc, .toc-toggle, .nav-toggle, footer { display: none; }
@@ -563,6 +571,16 @@ vector&lt;<span class="keyword">int</span>&gt; <span class="function">twoSumSort
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.</p>
                             <p><strong>Pattern:</strong> Hash Map for O(1) lookup</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Brute Force First:</strong> Check every pair - O(n²). Can we do better?</li>
+                                    <li><strong>Key Insight:</strong> For each number, we need its complement (target - num). How to find it fast?</li>
+                                    <li><strong>Hash Map!</strong> Store seen numbers with their indices. O(1) lookup for complement.</li>
+                                    <li><strong>One Pass:</strong> As we iterate, check if complement exists, then add current to map.</li>
+                                </ol>
+                            </div>
+
 
                             <div class="code-tabs">
                                 <button class="code-tab active" onclick="switchTab(this, 'twosum-py')">Python</button>
@@ -622,6 +640,16 @@ vector&lt;<span class="keyword">int</span>&gt; <span class="function">twoSumSort
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Find the maximum profit from buying and selling a stock once.</p>
                             <p><strong>Pattern:</strong> Track minimum price seen so far, calculate max profit at each step</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>What do we need?</strong> Max difference where smaller comes before larger.</li>
+                                    <li><strong>Track minimum:</strong> Keep track of minimum price seen so far.</li>
+                                    <li><strong>Calculate profit:</strong> At each day, profit = current price - min so far.</li>
+                                    <li><strong>Update max:</strong> Keep track of maximum profit seen.</li>
+                                </ol>
+                            </div>
+
 
                             <div class="code-tabs">
                                 <button class="code-tab active" onclick="switchTab(this, 'stock-py')">Python</button>
@@ -672,6 +700,16 @@ vector&lt;<span class="keyword">int</span>&gt; <span class="function">twoSumSort
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Return true if any value appears at least twice in the array.</p>
                             <p><strong>Pattern:</strong> Use HashSet for O(1) duplicate detection</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Brute Force:</strong> Compare every pair - O(n²). Too slow!</li>
+                                    <li><strong>Sorting:</strong> Sort and check adjacent - O(n log n). Better!</li>
+                                    <li><strong>Hash Set:</strong> Add elements to set, check if already exists - O(n). Best!</li>
+                                    <li><strong>One-liner:</strong> Compare len(nums) vs len(set(nums)).</li>
+                                </ol>
+                            </div>
+
 
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">containsDuplicate</span>(nums):
@@ -702,6 +740,16 @@ vector&lt;<span class="keyword">int</span>&gt; <span class="function">twoSumSort
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Find the contiguous subarray with the largest sum.</p>
                             <p><strong>Pattern:</strong> Kadane's Algorithm - track current max and global max</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Brute Force:</strong> Check all subarrays - O(n²). Can we optimize?</li>
+                                    <li><strong>Key Decision:</strong> At each element, extend current subarray OR start fresh?</li>
+                                    <li><strong>Kadane's Insight:</strong> current_sum = max(nums[i], current_sum + nums[i])</li>
+                                    <li><strong>Track Global Max:</strong> Update max_sum whenever current_sum improves.</li>
+                                </ol>
+                            </div>
+
 
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">maxSubArray</span>(nums):
@@ -737,6 +785,16 @@ vector&lt;<span class="keyword">int</span>&gt; <span class="function">twoSumSort
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Return array where each element is product of all other elements (without using division).</p>
                             <p><strong>Pattern:</strong> Prefix and suffix products</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>With Division:</strong> Total product ÷ nums[i]. But division not allowed!</li>
+                                    <li><strong>Key Insight:</strong> result[i] = (product of all left) × (product of all right)</li>
+                                    <li><strong>Two Passes:</strong> First pass: left products. Second pass: multiply by right products.</li>
+                                    <li><strong>Space Optimization:</strong> Use output array for left, variable for right.</li>
+                                </ol>
+                            </div>
+
 
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">productExceptSelf</span>(nums):
@@ -888,6 +946,16 @@ sb.append(<span class="string">"!"</span>);
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Check if a string is a palindrome, considering only alphanumeric characters.</p>
                             <p><strong>Pattern:</strong> Two pointers from both ends</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Clean First:</strong> Remove non-alphanumeric, convert to lowercase.</li>
+                                    <li><strong>Two Pointers:</strong> Compare from both ends moving inward.</li>
+                                    <li><strong>Alternative:</strong> Compare string with its reverse.</li>
+                                    <li><strong>Edge Cases:</strong> Empty string, single character = valid palindrome.</li>
+                                </ol>
+                            </div>
+
 
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">isPalindrome</span>(s):
@@ -926,6 +994,16 @@ sb.append(<span class="string">"!"</span>);
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Check if two strings are anagrams of each other.</p>
                             <p><strong>Pattern:</strong> Character frequency counting</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>What's an anagram?</strong> Same characters, same frequencies, different order.</li>
+                                    <li><strong>Sorting Approach:</strong> Sort both strings, compare - O(n log n).</li>
+                                    <li><strong>Hash Map:</strong> Count chars in first, decrement with second - O(n).</li>
+                                    <li><strong>Python Trick:</strong> Counter(s) == Counter(t) one-liner!</li>
+                                </ol>
+                            </div>
+
 
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">isAnagram</span>(s, t):
@@ -961,6 +1039,16 @@ sb.append(<span class="string">"!"</span>);
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Find the length of the longest substring without repeating characters.</p>
                             <p><strong>Pattern:</strong> Sliding Window with HashSet</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Brute Force:</strong> Check all substrings - O(n³). Way too slow!</li>
+                                    <li><strong>Sliding Window:</strong> Expand right, shrink left when duplicate found.</li>
+                                    <li><strong>Track Characters:</strong> Use set or hash map for O(1) duplicate check.</li>
+                                    <li><strong>Optimization:</strong> Jump left pointer directly to after duplicate's position.</li>
+                                </ol>
+                            </div>
+
 
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">lengthOfLongestSubstring</span>(s):
@@ -999,6 +1087,16 @@ sb.append(<span class="string">"!"</span>);
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Group strings that are anagrams of each other.</p>
                             <p><strong>Pattern:</strong> Hash map with sorted string or char count as key</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Anagram Property:</strong> All anagrams have same sorted string.</li>
+                                    <li><strong>Hash Map Key:</strong> Use sorted string as key to group anagrams.</li>
+                                    <li><strong>Alternative Key:</strong> Tuple of character counts (faster for long strings).</li>
+                                    <li><strong>Build Groups:</strong> Iterate once, append to appropriate group.</li>
+                                </ol>
+                            </div>
+
 
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">groupAnagrams</span>(strs):
@@ -1195,6 +1293,16 @@ sb.append(<span class="string">"!"</span>);
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Sort an array without using built-in sort functions.</p>
                             <p><strong>Pattern:</strong> Implement Merge Sort for O(n log n) guaranteed performance</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>No Built-in:</strong> Must implement sorting algorithm ourselves.</li>
+                                    <li><strong>Merge Sort:</strong> Divide in half, sort each, merge - O(n log n) guaranteed.</li>
+                                    <li><strong>Quick Sort:</strong> Partition around pivot - O(n log n) average, O(n²) worst.</li>
+                                    <li><strong>Choice:</strong> Merge sort for stability, Quick sort for in-place.</li>
+                                </ol>
+                            </div>
+
                             <p><strong>💡 Key Insight:</strong> Merge Sort divides array in half, recursively sorts each half, then merges. QuickSort is faster on average but has O(n²) worst case.</p>
 
                             <div class="code-block">
@@ -1242,6 +1350,16 @@ sb.append(<span class="string">"!"</span>);
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Sort array containing only 0, 1, and 2 in one pass.</p>
                             <p><strong>Pattern:</strong> Three-way partitioning</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Counting Sort:</strong> Count 0s, 1s, 2s then overwrite - 2 passes.</li>
+                                    <li><strong>One Pass:</strong> Three pointers - low, mid, high.</li>
+                                    <li><strong>Dutch Flag:</strong> 0s go to low, 2s go to high, 1s stay in middle.</li>
+                                    <li><strong>Swap Logic:</strong> mid encounters 0→swap with low, 2→swap with high.</li>
+                                </ol>
+                            </div>
+
 
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">sortColors</span>(nums):
@@ -1276,6 +1394,16 @@ sb.append(<span class="string">"!"</span>);
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Merge all overlapping intervals.</p>
                             <p><strong>Pattern:</strong> Sort by start time, then merge</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Sort First:</strong> Sort by start time to process in order.</li>
+                                    <li><strong>Overlap Check:</strong> Current start ≤ previous end means overlap.</li>
+                                    <li><strong>Merge:</strong> Extend end to max(prev end, curr end).</li>
+                                    <li><strong>No Overlap:</strong> Add previous to result, start new interval.</li>
+                                </ol>
+                            </div>
+
 
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">merge</span>(intervals):
@@ -1410,6 +1538,16 @@ sb.append(<span class="string">"!"</span>);
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Given a sorted array and target, return index if found, else -1.</p>
                             <p><strong>Pattern:</strong> Classic Binary Search - divide search space in half each iteration</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Prerequisite:</strong> Array must be sorted!</li>
+                                    <li><strong>Core Idea:</strong> Compare with middle, eliminate half each time.</li>
+                                    <li><strong>Boundaries:</strong> left = 0, right = len-1. Update based on comparison.</li>
+                                    <li><strong>Termination:</strong> left > right means element not found.</li>
+                                </ol>
+                            </div>
+
                             <p><strong>💡 Key Insight:</strong> Compare target with middle element. If target is smaller, search left half; if larger, search right half.</p>
 
                             <div class="code-block">
@@ -1449,6 +1587,16 @@ sb.append(<span class="string">"!"</span>);
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Search in a sorted array that has been rotated.</p>
                             <p><strong>Pattern:</strong> Modified binary search - identify sorted half</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Challenge:</strong> Array is rotated, but still partially sorted.</li>
+                                    <li><strong>Key Insight:</strong> One half is always sorted!</li>
+                                    <li><strong>Identify Sorted Half:</strong> Compare nums[left] with nums[mid].</li>
+                                    <li><strong>Decide Direction:</strong> Check if target is in sorted half, move accordingly.</li>
+                                </ol>
+                            </div>
+
 
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">search</span>(nums, target):
@@ -1525,6 +1673,16 @@ sb.append(<span class="string">"!"</span>);
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Find median of two sorted arrays in O(log(m+n)) time.</p>
                             <p><strong>Pattern:</strong> Binary search on partition</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Observation:</strong> Minimum is at the rotation point.</li>
+                                    <li><strong>Binary Search:</strong> Compare mid with right to find unsorted half.</li>
+                                    <li><strong>If nums[mid] > nums[right]:</strong> Min is in right half.</li>
+                                    <li><strong>Otherwise:</strong> Min is in left half (including mid).</li>
+                                </ol>
+                            </div>
+
 
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">findMedianSortedArrays</span>(nums1, nums2):
@@ -1736,6 +1894,16 @@ sb.append(<span class="string">"!"</span>);
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Reverse a singly linked list.</p>
                             <p><strong>Pattern:</strong> Three pointers - prev, curr, next</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Iterative:</strong> Need 3 pointers - prev, curr, next.</li>
+                                    <li><strong>At Each Node:</strong> Save next, point curr to prev, move prev and curr forward.</li>
+                                    <li><strong>Recursive:</strong> Reverse rest of list, then point next node back to current.</li>
+                                    <li><strong>Return:</strong> prev (iterative) or new head from recursion.</li>
+                                </ol>
+                            </div>
+
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">reverseList</span>(head):
     prev = <span class="keyword">None</span>
@@ -1799,6 +1967,26 @@ sb.append(<span class="string">"!"</span>);
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Detect if a linked list has a cycle.</p>
                             <p><strong>Pattern:</strong> Floyd's Tortoise and Hare (slow/fast pointers)</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Hash Set:</strong> Store visited nodes, check if seen again - O(n) space.</li>
+                                    <li><strong>Floyd's Tortoise & Hare:</strong> Two pointers, one fast (2x), one slow.</li>
+                                    <li><strong>Why It Works:</strong> If cycle exists, fast will eventually meet slow.</li>
+                                    <li><strong>No Cycle:</strong> Fast pointer reaches null.</li>
+                                </ol>
+                            </div>
+
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Dummy Node:</strong> Create dummy to simplify edge cases.</li>
+                                    <li><strong>Compare & Link:</strong> Always pick smaller node, advance that pointer.</li>
+                                    <li><strong>Remaining:</strong> When one list ends, link remaining of other.</li>
+                                    <li><strong>Return:</strong> dummy.next (skip the dummy).</li>
+                                </ol>
+                            </div>
+
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">hasCycle</span>(head):
     slow = fast = head
@@ -1829,6 +2017,16 @@ sb.append(<span class="string">"!"</span>);
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Remove the nth node from the end in one pass.</p>
                             <p><strong>Pattern:</strong> Two pointers with n gap</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Two Pass:</strong> Count length, then remove (length - n + 1)th node.</li>
+                                    <li><strong>One Pass:</strong> Use two pointers with n nodes gap.</li>
+                                    <li><strong>Setup:</strong> Move fast pointer n steps ahead first.</li>
+                                    <li><strong>Then:</strong> Move both until fast reaches end. Slow is at target.</li>
+                                </ol>
+                            </div>
+
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">removeNthFromEnd</span>(head, n):
     dummy = ListNode(<span class="number">0</span>, head)
@@ -1865,6 +2063,16 @@ sb.append(<span class="string">"!"</span>);
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Merge k sorted linked lists into one sorted list.</p>
                             <p><strong>Pattern:</strong> Divide and conquer or min-heap</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Brute Force:</strong> Merge lists one by one - O(kN).</li>
+                                    <li><strong>Min Heap:</strong> Always pick smallest from k lists - O(N log k).</li>
+                                    <li><strong>Divide & Conquer:</strong> Merge pairs, reduce to k/2 lists each round.</li>
+                                    <li><strong>Heap Approach:</strong> Push first node of each list, pop min, push its next.</li>
+                                </ol>
+                            </div>
+
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">import</span> heapq
 
@@ -2058,6 +2266,36 @@ is_empty = <span class="keyword">len</span>(stack) == <span class="number">0</sp
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Find days until warmer temperature.</p>
                             <p><strong>Pattern:</strong> Monotonic decreasing stack</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Brute Force:</strong> For each day, scan right for warmer - O(n²).</li>
+                                    <li><strong>Monotonic Stack:</strong> Stack of indices with decreasing temps.</li>
+                                    <li><strong>On Warmer Day:</strong> Pop all cooler days, calculate their wait time.</li>
+                                    <li><strong>Key:</strong> Each index pushed and popped once - O(n).</li>
+                                </ol>
+                            </div>
+
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Challenge:</strong> getMin() in O(1) even after pops.</li>
+                                    <li><strong>Key Insight:</strong> Track minimum at each stack state.</li>
+                                    <li><strong>Two Stacks:</strong> Main stack + min stack (or store tuples).</li>
+                                    <li><strong>On Push:</strong> Push current min alongside value.</li>
+                                </ol>
+                            </div>
+
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Stack Pattern:</strong> Opening brackets push, closing brackets pop.</li>
+                                    <li><strong>Matching:</strong> Closing must match most recent opening.</li>
+                                    <li><strong>Invalid Cases:</strong> Pop from empty stack, or mismatch, or stack not empty at end.</li>
+                                    <li><strong>Use Map:</strong> Map closing to opening for easy matching.</li>
+                                </ol>
+                            </div>
+
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">dailyTemperatures</span>(temperatures):
     n = <span class="keyword">len</span>(temperatures)
@@ -2089,6 +2327,16 @@ is_empty = <span class="keyword">len</span>(stack) == <span class="number">0</sp
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Find the largest rectangular area in a histogram.</p>
                             <p><strong>Pattern:</strong> Monotonic stack to find boundaries</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>For Each Bar:</strong> Find how far left and right it can extend.</li>
+                                    <li><strong>Monotonic Stack:</strong> Stack of indices with increasing heights.</li>
+                                    <li><strong>On Smaller Bar:</strong> Pop and calculate area with popped as height.</li>
+                                    <li><strong>Width:</strong> Current index - stack top - 1 (or current index if stack empty).</li>
+                                </ol>
+                            </div>
+
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">largestRectangleArea</span>(heights):
     stack = []  <span class="comment"># Stack of indices</span>
@@ -2281,6 +2529,16 @@ groups[<span class="string">'key'</span>].append(<span class="number">1</span>) 
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Return the k most frequent elements.</p>
                             <p><strong>Pattern:</strong> Hash map + bucket sort or heap</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Step 1:</strong> Count frequencies using hash map.</li>
+                                    <li><strong>Heap Approach:</strong> Use min-heap of size k - O(n log k).</li>
+                                    <li><strong>Bucket Sort:</strong> Index = frequency, value = elements - O(n).</li>
+                                    <li><strong>Python Trick:</strong> Counter.most_common(k) does it all!</li>
+                                </ol>
+                            </div>
+
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">topKFrequent</span>(nums, k):
     <span class="keyword">from</span> collections <span class="keyword">import</span> Counter
@@ -2320,6 +2578,16 @@ groups[<span class="string">'key'</span>].append(<span class="number">1</span>) 
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Design a Least Recently Used cache.</p>
                             <p><strong>Pattern:</strong> Hash map + Doubly linked list</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Requirements:</strong> O(1) get and put, evict least recently used.</li>
+                                    <li><strong>Hash Map:</strong> For O(1) key lookup.</li>
+                                    <li><strong>Doubly Linked List:</strong> For O(1) removal and insertion at ends.</li>
+                                    <li><strong>Combine:</strong> Map stores key → node, list maintains usage order.</li>
+                                </ol>
+                            </div>
+
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">class</span> <span class="class-name">LRUCache</span>:
     <span class="keyword">def</span> <span class="function">__init__</span>(self, capacity):
@@ -2693,6 +2961,76 @@ groups[<span class="string">'key'</span>].append(<span class="number">1</span>) 
                         </div>
                         <div class="problem-content">
                             <p><strong>Pattern:</strong> Inorder traversal gives sorted order</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Path Options:</strong> Through root, or entirely in left/right subtree.</li>
+                                    <li><strong>At Each Node:</strong> Max gain = node.val + max(left, right, 0).</li>
+                                    <li><strong>Full Path:</strong> node.val + left gain + right gain (can't go up).</li>
+                                    <li><strong>Global Max:</strong> Track maximum path sum seen during traversal.</li>
+                                </ol>
+                            </div>
+
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>BST Property:</strong> Inorder traversal gives sorted order!</li>
+                                    <li><strong>Approach:</strong> Do inorder, stop at kth element.</li>
+                                    <li><strong>Iterative:</strong> Use stack for inorder, count until k.</li>
+                                    <li><strong>Optimization:</strong> No need to traverse entire tree.</li>
+                                </ol>
+                            </div>
+
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>BST Property:</strong> Left < Node < Right for ALL nodes, not just children.</li>
+                                    <li><strong>Range Approach:</strong> Each node must be within (min, max) range.</li>
+                                    <li><strong>Update Ranges:</strong> Go left → update max. Go right → update min.</li>
+                                    <li><strong>Alternative:</strong> Inorder traversal should be strictly increasing.</li>
+                                </ol>
+                            </div>
+
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>BFS Pattern:</strong> Process nodes level by level.</li>
+                                    <li><strong>Queue:</strong> Use queue, process all nodes at current level.</li>
+                                    <li><strong>Level Size:</strong> Capture queue size at start of each level.</li>
+                                    <li><strong>Build Result:</strong> Append level list to result after processing.</li>
+                                </ol>
+                            </div>
+
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Base Cases:</strong> Both null = same. One null = different.</li>
+                                    <li><strong>Compare Values:</strong> If values differ, not same.</li>
+                                    <li><strong>Recurse:</strong> Both left subtrees same AND both right subtrees same.</li>
+                                    <li><strong>Iterative:</strong> Use queue/stack to compare level by level.</li>
+                                </ol>
+                            </div>
+
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Base Case:</strong> Empty tree returns None.</li>
+                                    <li><strong>Swap Children:</strong> root.left, root.right = root.right, root.left</li>
+                                    <li><strong>Recurse:</strong> Invert left subtree, invert right subtree.</li>
+                                    <li><strong>Order:</strong> Can swap before or after recursion (pre/post-order).</li>
+                                </ol>
+                            </div>
+
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Base Case:</strong> Empty tree has depth 0.</li>
+                                    <li><strong>Recursive:</strong> Depth = 1 + max(left depth, right depth).</li>
+                                    <li><strong>Iterative BFS:</strong> Level-order traversal, count levels.</li>
+                                    <li><strong>Iterative DFS:</strong> Stack with (node, depth) pairs.</li>
+                                </ol>
+                            </div>
+
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">kthSmallest</span>(root, k):
     stack = []
@@ -2879,6 +3217,26 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
                         </div>
                         <div class="problem-content">
                             <p><strong>Pattern:</strong> Two heaps (max-heap for lower half, min-heap for upper half)</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>BST Property:</strong> Left < Root < Right helps navigation.</li>
+                                    <li><strong>Both Smaller:</strong> LCA is in right subtree.</li>
+                                    <li><strong>Both Larger:</strong> LCA is in left subtree.</li>
+                                    <li><strong>Split Point:</strong> When p and q are on different sides, current node is LCA.</li>
+                                </ol>
+                            </div>
+
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Sorting:</strong> Sort and return nums[n-k] - O(n log n).</li>
+                                    <li><strong>Min Heap:</strong> Keep heap of size k - O(n log k).</li>
+                                    <li><strong>QuickSelect:</strong> Partition like quicksort - O(n) average.</li>
+                                    <li><strong>Key:</strong> Kth largest = (n-k)th smallest (0-indexed).</li>
+                                </ol>
+                            </div>
+
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">import</span> heapq
 
@@ -2922,6 +3280,16 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
                         </div>
                         <div class="problem-content">
                             <p><strong>Pattern:</strong> DFS/BFS with hash map for cloned nodes</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Challenge:</strong> Nodes have references to each other (cycles possible).</li>
+                                    <li><strong>Hash Map:</strong> Map original node → cloned node.</li>
+                                    <li><strong>DFS/BFS:</strong> Visit each node, create clone, connect neighbors.</li>
+                                    <li><strong>Check Map:</strong> If already cloned, return existing clone (handles cycles).</li>
+                                </ol>
+                            </div>
+
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">cloneGraph</span>(node):
     <span class="keyword">if not</span> node:
@@ -2959,6 +3327,16 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
                         </div>
                         <div class="problem-content">
                             <p><strong>Pattern:</strong> Detect cycle in directed graph using DFS</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Model as Graph:</strong> Courses = nodes, prerequisites = directed edges.</li>
+                                    <li><strong>Cycle = Impossible:</strong> If cycle exists, can't complete all courses.</li>
+                                    <li><strong>DFS with States:</strong> Unvisited, Visiting (in path), Visited (done).</li>
+                                    <li><strong>Cycle Found:</strong> If we reach a "Visiting" node, there's a cycle.</li>
+                                </ol>
+                            </div>
+
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">canFinish</span>(numCourses, prerequisites):
     graph = {i: [] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="keyword">range</span>(numCourses)}
@@ -3064,6 +3442,16 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Count ways to climb n stairs taking 1 or 2 steps.</p>
                             <p><strong>Pattern:</strong> Fibonacci sequence</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Choices:</strong> At each step, take 1 or 2 stairs.</li>
+                                    <li><strong>Recurrence:</strong> ways(n) = ways(n-1) + ways(n-2)</li>
+                                    <li><strong>It's Fibonacci!</strong> Base: ways(1)=1, ways(2)=2.</li>
+                                    <li><strong>Optimize:</strong> Only need last 2 values, not full array.</li>
+                                </ol>
+                            </div>
+
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">climbStairs</span>(n):
     <span class="keyword">if</span> n <= <span class="number">2</span>:
@@ -3092,6 +3480,16 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Find minimum coins needed to make amount.</p>
                             <p><strong>Pattern:</strong> Unbounded knapsack</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Greedy Fails:</strong> Largest coins first doesn't always work.</li>
+                                    <li><strong>DP State:</strong> dp[amount] = min coins needed for that amount.</li>
+                                    <li><strong>Transition:</strong> dp[i] = min(dp[i], dp[i-coin] + 1) for each coin.</li>
+                                    <li><strong>Build Up:</strong> Solve for 0, 1, 2... up to target amount.</li>
+                                </ol>
+                            </div>
+
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">coinChange</span>(coins, amount):
     dp = [<span class="keyword">float</span>(<span class="string">'inf'</span>)] * (amount + <span class="number">1</span>)
@@ -3235,6 +3633,36 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Count connected components of '1's in a 2D grid.</p>
                             <p><strong>Pattern:</strong> DFS/BFS flood fill</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Operations:</strong> Insert, Delete, Replace - each costs 1.</li>
+                                    <li><strong>DP State:</strong> dp[i][j] = min ops to convert word1[0..i] to word2[0..j].</li>
+                                    <li><strong>If chars match:</strong> dp[i][j] = dp[i-1][j-1] (no operation needed).</li>
+                                    <li><strong>If different:</strong> 1 + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]).</li>
+                                </ol>
+                            </div>
+
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>DP State:</strong> dp[i] = LIS ending at index i.</li>
+                                    <li><strong>Transition:</strong> For each j < i where nums[j] < nums[i]: dp[i] = max(dp[i], dp[j]+1)</li>
+                                    <li><strong>O(n²):</strong> Check all previous elements for each position.</li>
+                                    <li><strong>O(n log n):</strong> Use binary search with patience sorting.</li>
+                                </ol>
+                            </div>
+
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Scan Grid:</strong> When we find '1', it's a new island.</li>
+                                    <li><strong>Mark Visited:</strong> Use DFS/BFS to mark all connected '1's.</li>
+                                    <li><strong>Count:</strong> Each time we start a new DFS = one island.</li>
+                                    <li><strong>Trick:</strong> Modify grid in-place (change '1' to '0') to mark visited.</li>
+                                </ol>
+                            </div>
+
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">numIslands</span>(grid):
     <span class="keyword">if not</span> grid:
@@ -3279,6 +3707,16 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
                         </div>
                         <div class="problem-content">
                             <p><strong>Pattern:</strong> Detect cycle in directed graph using DFS</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Model as Graph:</strong> Courses = nodes, prerequisites = edges.</li>
+                                    <li><strong>Cycle Detection:</strong> If cycle exists, can't complete all courses.</li>
+                                    <li><strong>DFS Approach:</strong> Track visiting (in current path) vs visited (completed).</li>
+                                    <li><strong>BFS/Kahn's:</strong> Topological sort - process nodes with no incoming edges.</li>
+                                </ol>
+                            </div>
+
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">canFinish</span>(numCourses, prerequisites):
     graph = {i: [] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="keyword">range</span>(numCourses)}
@@ -3379,6 +3817,16 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
                         </div>
                         <div class="problem-content">
                             <p><strong>Problem:</strong> Generate all possible subsets of a set.</p>
+<div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Choice at Each Element:</strong> Include it or exclude it.</li>
+                                    <li><strong>Backtracking:</strong> Add element, recurse, remove element.</li>
+                                    <li><strong>Iterative:</strong> Start with [[]], for each num, add it to all existing subsets.</li>
+                                    <li><strong>Total Subsets:</strong> 2^n (each element has 2 choices).</li>
+                                </ol>
+                            </div>
+
                             <div class="code-block">
                                 <code class="code-content active"><span class="keyword">def</span> <span class="function">subsets</span>(nums):
     result = []
