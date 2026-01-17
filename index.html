@@ -163,6 +163,34 @@
         .thought-process li { margin-bottom: 0.5rem; font-size: 0.95rem; }
         .thought-process strong { color: #92400e; }
 
+        
+        /* Search and Filter */
+        .search-filter-container { background: var(--surface); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 2rem; box-shadow: var(--shadow); }
+        .search-box { display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .search-input { flex: 1; min-width: 250px; padding: 0.75rem 1rem; border: 2px solid var(--border); border-radius: var(--radius); font-size: 1rem; transition: border-color 0.2s; }
+        .search-input:focus { outline: none; border-color: var(--primary); }
+        .search-input::placeholder { color: var(--text-muted); }
+        .filter-section { margin-bottom: 1rem; }
+        .filter-label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.5rem; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
+        .filter-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .filter-btn { padding: 0.4rem 1rem; border: 1px solid var(--border); border-radius: 20px; background: var(--surface); cursor: pointer; font-size: 0.85rem; font-weight: 500; transition: all 0.2s; }
+        .filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .filter-btn.easy { border-color: #059669; color: #059669; }
+        .filter-btn.easy.active { background: #059669; color: white; }
+        .filter-btn.medium { border-color: #d97706; color: #d97706; }
+        .filter-btn.medium.active { background: #d97706; color: white; }
+        .filter-btn.hard { border-color: #dc2626; color: #dc2626; }
+        .filter-btn.hard.active { background: #dc2626; color: white; }
+        .filter-stats { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+        .stat-item { font-size: 0.9rem; color: var(--text-muted); }
+        .stat-item strong { color: var(--text); }
+        .no-results { text-align: center; padding: 2rem; color: var(--text-muted); }
+        .problem-hidden { display: none !important; }
+        
+        /* Pattern Tags */
+        .pattern-tag { display: inline-flex; align-items: center; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.7rem; font-weight: 500; margin-left: 0.5rem; background: #eff6ff; color: #1d4ed8; }
+
         /* Print Styles */
         @media print {
             .nav, .toc, .toc-toggle, .nav-toggle, footer { display: none; }
@@ -207,6 +235,50 @@
         </div>
     </nav>
 
+    <!-- Search and Filter Section -->
+    <div class="container" style="margin-top: 2rem;">
+        <div class="search-filter-container">
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search problems by name, number, or keyword..." onkeyup="filterProblems()">
+            </div>
+            <div class="filter-section">
+                <span class="filter-label">Difficulty</span>
+                <div class="filter-buttons" id="difficultyFilters">
+                    <button class="filter-btn active" data-difficulty="all" onclick="setDifficultyFilter('all')">All</button>
+                    <button class="filter-btn easy" data-difficulty="easy" onclick="setDifficultyFilter('easy')">Easy</button>
+                    <button class="filter-btn medium" data-difficulty="medium" onclick="setDifficultyFilter('medium')">Medium</button>
+                    <button class="filter-btn hard" data-difficulty="hard" onclick="setDifficultyFilter('hard')">Hard</button>
+                </div>
+            </div>
+            <div class="filter-section">
+                <span class="filter-label">Pattern</span>
+                <div class="filter-buttons" id="patternFilters">
+                    <button class="filter-btn active" data-pattern="all" onclick="setPatternFilter('all')">All</button>
+                    <button class="filter-btn" data-pattern="array" onclick="setPatternFilter('array')">Array</button>
+                    <button class="filter-btn" data-pattern="hash-map" onclick="setPatternFilter('hash-map')">Hash Map</button>
+                    <button class="filter-btn" data-pattern="two-pointers" onclick="setPatternFilter('two-pointers')">Two Pointers</button>
+                    <button class="filter-btn" data-pattern="sliding-window" onclick="setPatternFilter('sliding-window')">Sliding Window</button>
+                    <button class="filter-btn" data-pattern="binary-search" onclick="setPatternFilter('binary-search')">Binary Search</button>
+                    <button class="filter-btn" data-pattern="linked-list" onclick="setPatternFilter('linked-list')">Linked List</button>
+                    <button class="filter-btn" data-pattern="stack" onclick="setPatternFilter('stack')">Stack</button>
+                    <button class="filter-btn" data-pattern="tree" onclick="setPatternFilter('tree')">Tree</button>
+                    <button class="filter-btn" data-pattern="graph" onclick="setPatternFilter('graph')">Graph</button>
+                    <button class="filter-btn" data-pattern="dp" onclick="setPatternFilter('dp')">DP</button>
+                    <button class="filter-btn" data-pattern="backtracking" onclick="setPatternFilter('backtracking')">Backtracking</button>
+                    <button class="filter-btn" data-pattern="heap" onclick="setPatternFilter('heap')">Heap</button>
+                    <button class="filter-btn" data-pattern="greedy" onclick="setPatternFilter('greedy')">Greedy</button>
+                    <button class="filter-btn" data-pattern="bit" onclick="setPatternFilter('bit')">Bit Manipulation</button>
+                    <button class="filter-btn" data-pattern="trie" onclick="setPatternFilter('trie')">Trie</button>
+                    <button class="filter-btn" data-pattern="union-find" onclick="setPatternFilter('union-find')">Union Find</button>
+                </div>
+            </div>
+            <div class="filter-stats">
+                <span class="stat-item">Showing: <strong id="visibleCount">0</strong> problems</span>
+                <span class="stat-item">Total: <strong id="totalProblems">0</strong></span>
+            </div>
+        </div>
+    </div>
+
     <!-- Table of Contents Toggle -->
     <button class="toc-toggle" onclick="toggleToc()" aria-label="Toggle table of contents">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
@@ -229,6 +301,12 @@
         <a href="#hashtables" class="toc-link">#️⃣ Hash Tables</a>
         <a href="#trees" class="toc-link">🌳 Binary Trees</a>
         <a href="#bst" class="toc-link">🌲 BST</a>
+                <a href="#sliding-window" class="toc-link">🪟 Sliding Window</a>
+        <a href="#two-pointers" class="toc-link">👆 Two Pointers</a>
+        <a href="#trie" class="toc-link">🌳 Tries</a>
+        <a href="#union-find" class="toc-link">🔗 Union Find</a>
+        <a href="#greedy" class="toc-link">💰 Greedy</a>
+        <a href="#bit-manipulation" class="toc-link">🔢 Bit Manipulation</a>
         <div class="toc-section">Advanced</div>
         <a href="#heaps" class="toc-link">⛰️ Heaps</a>
         <a href="#dp" class="toc-link">💡 Dynamic Programming</a>
@@ -562,10 +640,9 @@ vector&lt;<span class="keyword">int</span>&gt; <span class="function">twoSumSort
                 <h3>🎯 LeetCode Problems</h3>
                 <div class="problem-list">
                     <!-- Two Sum -->
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="hash-map" data-difficulty="easy"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-easy">Easy</span>
-                            <span class="problem-title">1. Two Sum</span>
+                            <span class="problem-title">1. Two Sum</span><span class="pattern-tag">hash-map</span>
                             <a href="https://leetcode.com/problems/two-sum/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -631,10 +708,9 @@ vector&lt;<span class="keyword">int</span>&gt; <span class="function">twoSumSort
                     </div>
 
                     <!-- Best Time to Buy and Sell Stock -->
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="array" data-difficulty="easy"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-easy">Easy</span>
-                            <span class="problem-title">121. Best Time to Buy and Sell Stock</span>
+                            <span class="problem-title">121. Best Time to Buy and Sell Stock</span><span class="pattern-tag">array</span>
                             <a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -691,10 +767,9 @@ vector&lt;<span class="keyword">int</span>&gt; <span class="function">twoSumSort
                     </div>
 
                     <!-- Contains Duplicate -->
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="hash-map" data-difficulty="easy"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-easy">Easy</span>
-                            <span class="problem-title">217. Contains Duplicate</span>
+                            <span class="problem-title">217. Contains Duplicate</span><span class="pattern-tag">hash-map</span>
                             <a href="https://leetcode.com/problems/contains-duplicate/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -776,10 +851,9 @@ vector&lt;<span class="keyword">int</span>&gt; <span class="function">twoSumSort
                     </div>
 
                     <!-- Product of Array Except Self -->
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="array" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">238. Product of Array Except Self</span>
+                            <span class="problem-title">238. Product of Array Except Self</span><span class="pattern-tag">array</span>
                             <a href="https://leetcode.com/problems/product-of-array-except-self/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -937,10 +1011,9 @@ sb.append(<span class="string">"!"</span>);
                 <h3>🎯 LeetCode Problems</h3>
                 <div class="problem-list">
                     <!-- Valid Palindrome -->
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="two-pointers" data-difficulty="easy"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-easy">Easy</span>
-                            <span class="problem-title">125. Valid Palindrome</span>
+                            <span class="problem-title">125. Valid Palindrome</span><span class="pattern-tag">two-pointers</span>
                             <a href="https://leetcode.com/problems/valid-palindrome/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -985,10 +1058,9 @@ sb.append(<span class="string">"!"</span>);
                     </div>
 
                     <!-- Valid Anagram -->
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="hash-map" data-difficulty="easy"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-easy">Easy</span>
-                            <span class="problem-title">242. Valid Anagram</span>
+                            <span class="problem-title">242. Valid Anagram</span><span class="pattern-tag">hash-map</span>
                             <a href="https://leetcode.com/problems/valid-anagram/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -1030,10 +1102,9 @@ sb.append(<span class="string">"!"</span>);
                     </div>
 
                     <!-- Longest Substring Without Repeating -->
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="sliding-window" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">3. Longest Substring Without Repeating Characters</span>
+                            <span class="problem-title">3. Longest Substring Without Repeating Characters</span><span class="pattern-tag">sliding-window</span>
                             <a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -1078,10 +1149,9 @@ sb.append(<span class="string">"!"</span>);
                     </div>
 
                     <!-- Group Anagrams -->
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="hash-map" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">49. Group Anagrams</span>
+                            <span class="problem-title">49. Group Anagrams</span><span class="pattern-tag">hash-map</span>
                             <a href="https://leetcode.com/problems/group-anagrams/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -1284,10 +1354,9 @@ sb.append(<span class="string">"!"</span>);
 
                 <h3>🎯 LeetCode Problems</h3>
                 <div class="problem-list">
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="array" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">912. Sort an Array</span>
+                            <span class="problem-title">912. Sort an Array</span><span class="pattern-tag">array</span>
                             <a href="https://leetcode.com/problems/sort-an-array/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -1385,10 +1454,9 @@ sb.append(<span class="string">"!"</span>);
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="array" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">56. Merge Intervals</span>
+                            <span class="problem-title">56. Merge Intervals</span><span class="pattern-tag">array</span>
                             <a href="https://leetcode.com/problems/merge-intervals/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -1529,10 +1597,9 @@ sb.append(<span class="string">"!"</span>);
 
                 <h3>🎯 LeetCode Problems</h3>
                 <div class="problem-list">
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="binary-search" data-difficulty="easy"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-easy">Easy</span>
-                            <span class="problem-title">704. Binary Search</span>
+                            <span class="problem-title">704. Binary Search</span><span class="pattern-tag">binary-search</span>
                             <a href="https://leetcode.com/problems/binary-search/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -1578,10 +1645,9 @@ sb.append(<span class="string">"!"</span>);
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="binary-search" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">33. Search in Rotated Sorted Array</span>
+                            <span class="problem-title">33. Search in Rotated Sorted Array</span><span class="pattern-tag">binary-search</span>
                             <a href="https://leetcode.com/problems/search-in-rotated-sorted-array/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -1631,10 +1697,9 @@ sb.append(<span class="string">"!"</span>);
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="binary-search" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">153. Find Minimum in Rotated Sorted Array</span>
+                            <span class="problem-title">153. Find Minimum in Rotated Sorted Array</span><span class="pattern-tag">binary-search</span>
                             <a href="https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -1664,10 +1729,9 @@ sb.append(<span class="string">"!"</span>);
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="binary-search" data-difficulty="hard"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-hard">Hard</span>
-                            <span class="problem-title">4. Median of Two Sorted Arrays</span>
+                            <span class="problem-title">4. Median of Two Sorted Arrays</span><span class="pattern-tag">binary-search</span>
                             <a href="https://leetcode.com/problems/median-of-two-sorted-arrays/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -1724,6 +1788,245 @@ sb.append(<span class="string">"!"</span>);
         </section>
 
         <!-- INTERMEDIATE LEVEL -->
+        <!-- Sliding Window -->
+        <section class="section" id="sliding-window">
+            <div class="section-header">
+                <h2>🪟 Sliding Window</h2>
+                <span class="badge badge-intermediate">Intermediate</span>
+            </div>
+            <div class="section-body">
+                <h3>What is Sliding Window?</h3>
+                <p>A technique for processing sequential data by maintaining a "window" that slides through the array/string. Used when you need to find subarrays or substrings that satisfy certain conditions.</p>
+
+                <div class="applications">
+                    <h5>🌍 When to Use Sliding Window</h5>
+                    <ul>
+                        <li><strong>Fixed Window:</strong> "Find max sum of k consecutive elements"</li>
+                        <li><strong>Variable Window:</strong> "Longest substring with at most k distinct chars"</li>
+                        <li><strong>Keywords:</strong> "subarray", "substring", "consecutive", "contiguous"</li>
+                    </ul>
+                </div>
+
+                <h3>�� Video Tutorials</h3>
+                <div class="link-list">
+                    <a href="https://www.youtube.com/watch?v=MK-NZ4hN7rs" target="_blank" class="link-btn">📺 NeetCode - Sliding Window</a>
+                    <a href="https://www.youtube.com/watch?v=jM2dhDPYMQM" target="_blank" class="link-btn">📺 Tech Dose - Sliding Window</a>
+                </div>
+
+                <h3>💻 Sliding Window Template</h3>
+                <div class="code-tabs">
+                    <button class="code-tab active" onclick="switchTab(this, 'slidingwindow-py')">Python</button>
+                </div>
+                <div class="code-block">
+                    <code class="code-content active" id="slidingwindow-py"><span class="comment"># Variable size sliding window template</span>
+<span class="keyword">def</span> <span class="function">sliding_window</span>(arr):
+    left = <span class="number">0</span>
+    result = <span class="number">0</span>
+    window_state = {}  <span class="comment"># or any state you need</span>
+    
+    <span class="keyword">for</span> right <span class="keyword">in</span> range(len(arr)):
+        <span class="comment"># Expand: add arr[right] to window</span>
+        
+        <span class="keyword">while</span> window_is_invalid():
+            <span class="comment"># Shrink: remove arr[left] from window</span>
+            left += <span class="number">1</span>
+        
+        <span class="comment"># Update result (depends on problem)</span>
+        result = max(result, right - left + <span class="number">1</span>)
+    
+    <span class="keyword">return</span> result
+
+<span class="comment"># Time: O(n), Space: O(k) where k is window state size</span></code>
+                </div>
+
+                <h3>🎯 LeetCode Problems</h3>
+                <div class="problem-list">
+                    <div class="problem-item" data-pattern="sliding-window" data-difficulty="medium">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-medium">Medium</span>
+                            <span class="problem-title">3. Longest Substring Without Repeating Characters</span>
+                            <span class="pattern-tag">sliding-window</span>
+                            <a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Find the length of the longest substring without repeating characters.</p>
+                            <p><strong>Pattern:</strong> Variable Sliding Window + Hash Set</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Variable Window:</strong> Window size changes based on duplicates.</li>
+                                    <li><strong>Expand:</strong> Add char to set, move right.</li>
+                                    <li><strong>Shrink:</strong> When duplicate found, remove from left until valid.</li>
+                                    <li><strong>Optimization:</strong> Use hash map to jump left pointer directly.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="problem-item" data-pattern="sliding-window" data-difficulty="medium">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-medium">Medium</span>
+                            <span class="problem-title">424. Longest Repeating Character Replacement</span>
+                            <span class="pattern-tag">sliding-window</span>
+                            <a href="https://leetcode.com/problems/longest-repeating-character-replacement/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Find longest substring with same letters after at most k replacements.</p>
+                            <p><strong>Pattern:</strong> Variable Sliding Window + Frequency Count</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Window Valid If:</strong> window_size - max_freq <= k</li>
+                                    <li><strong>Track:</strong> Frequency of each char in window.</li>
+                                    <li><strong>Shrink When:</strong> Need more than k replacements.</li>
+                                    <li><strong>Trick:</strong> Don't need to update maxFreq when shrinking.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="problem-item" data-pattern="sliding-window" data-difficulty="hard">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-hard">Hard</span>
+                            <span class="problem-title">76. Minimum Window Substring</span>
+                            <span class="pattern-tag">sliding-window</span>
+                            <a href="https://leetcode.com/problems/minimum-window-substring/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Find minimum window in s that contains all characters of t.</p>
+                            <p><strong>Pattern:</strong> Variable Sliding Window + Two Hash Maps</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Need Counter:</strong> Count required chars from t.</li>
+                                    <li><strong>Have Counter:</strong> Track chars in current window.</li>
+                                    <li><strong>Expand:</strong> Until window contains all chars of t.</li>
+                                    <li><strong>Shrink:</strong> Minimize window while still valid.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Two Pointers -->
+        <section class="section" id="two-pointers">
+            <div class="section-header">
+                <h2>👆👆 Two Pointers</h2>
+                <span class="badge badge-intermediate">Intermediate</span>
+            </div>
+            <div class="section-body">
+                <h3>What are Two Pointers?</h3>
+                <p>A technique using two pointers that traverse the data structure in a coordinated way. Common patterns: opposite ends moving inward, or same direction (fast/slow).</p>
+
+                <div class="applications">
+                    <h5>🌍 Common Two Pointer Patterns</h5>
+                    <ul>
+                        <li><strong>Opposite Ends:</strong> Start from both ends, move inward (palindrome, two sum sorted)</li>
+                        <li><strong>Fast & Slow:</strong> Detect cycles, find middle (linked list problems)</li>
+                        <li><strong>Same Direction:</strong> Remove duplicates, merge arrays</li>
+                    </ul>
+                </div>
+
+                <h3>💻 Two Pointers Templates</h3>
+                <div class="code-tabs">
+                    <button class="code-tab active" onclick="switchTab(this, 'twoptr-py')">Python</button>
+                </div>
+                <div class="code-block">
+                    <code class="code-content active" id="twoptr-py"><span class="comment"># Pattern 1: Opposite ends (sorted array)</span>
+<span class="keyword">def</span> <span class="function">two_sum_sorted</span>(arr, target):
+    left, right = <span class="number">0</span>, len(arr) - <span class="number">1</span>
+    <span class="keyword">while</span> left < right:
+        curr_sum = arr[left] + arr[right]
+        <span class="keyword">if</span> curr_sum == target:
+            <span class="keyword">return</span> [left, right]
+        <span class="keyword">elif</span> curr_sum < target:
+            left += <span class="number">1</span>
+        <span class="keyword">else</span>:
+            right -= <span class="number">1</span>
+    <span class="keyword">return</span> []
+
+<span class="comment"># Pattern 2: Fast & Slow (cycle detection)</span>
+<span class="keyword">def</span> <span class="function">has_cycle</span>(head):
+    slow = fast = head
+    <span class="keyword">while</span> fast <span class="keyword">and</span> fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        <span class="keyword">if</span> slow == fast:
+            <span class="keyword">return</span> <span class="keyword">True</span>
+    <span class="keyword">return</span> <span class="keyword">False</span></code>
+                </div>
+
+                <h3>🎯 LeetCode Problems</h3>
+                <div class="problem-list">
+                    <div class="problem-item" data-pattern="two-pointers" data-difficulty="medium">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-medium">Medium</span>
+                            <span class="problem-title">15. 3Sum</span>
+                            <span class="pattern-tag">two-pointers</span>
+                            <a href="https://leetcode.com/problems/3sum/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Find all unique triplets that sum to zero.</p>
+                            <p><strong>Pattern:</strong> Sort + Fix one + Two Pointers</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Sort First:</strong> Enables two pointer approach.</li>
+                                    <li><strong>Fix One Element:</strong> Iterate i, then two sum on rest.</li>
+                                    <li><strong>Skip Duplicates:</strong> Both for i and for left/right pointers.</li>
+                                    <li><strong>Move Pointers:</strong> Sum too small? Move left. Too big? Move right.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="problem-item" data-pattern="two-pointers" data-difficulty="medium">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-medium">Medium</span>
+                            <span class="problem-title">11. Container With Most Water</span>
+                            <span class="pattern-tag">two-pointers</span>
+                            <a href="https://leetcode.com/problems/container-with-most-water/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Find two lines that form container with most water.</p>
+                            <p><strong>Pattern:</strong> Two Pointers from opposite ends</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Start Wide:</strong> Maximum width at left=0, right=n-1.</li>
+                                    <li><strong>Area:</strong> min(height[left], height[right]) * (right - left)</li>
+                                    <li><strong>Move Shorter:</strong> Moving taller can only decrease area.</li>
+                                    <li><strong>Track Max:</strong> Update maximum area seen.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="problem-item" data-pattern="two-pointers" data-difficulty="medium">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-medium">Medium</span>
+                            <span class="problem-title">42. Trapping Rain Water</span>
+                            <span class="pattern-tag">two-pointers</span>
+                            <a href="https://leetcode.com/problems/trapping-rain-water/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Calculate how much rainwater can be trapped.</p>
+                            <p><strong>Pattern:</strong> Two Pointers with max tracking</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Water at i:</strong> min(maxLeft, maxRight) - height[i]</li>
+                                    <li><strong>Track maxLeft, maxRight:</strong> Maximum heights seen from each side.</li>
+                                    <li><strong>Move Smaller Side:</strong> Process the pointer with smaller max.</li>
+                                    <li><strong>Why?</strong> Water level is limited by the smaller side.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
         <section class="section" id="intermediate">
             <div class="section-header">
                 <h2>🌿 Intermediate Level</h2>
@@ -1885,10 +2188,9 @@ sb.append(<span class="string">"!"</span>);
 
                 <h3>🎯 LeetCode Problems</h3>
                 <div class="problem-list">
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="linked-list" data-difficulty="easy"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-easy">Easy</span>
-                            <span class="problem-title">206. Reverse Linked List</span>
+                            <span class="problem-title">206. Reverse Linked List</span><span class="pattern-tag">linked-list</span>
                             <a href="https://leetcode.com/problems/reverse-linked-list/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -1925,10 +2227,9 @@ sb.append(<span class="string">"!"</span>);
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="linked-list" data-difficulty="easy"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-easy">Easy</span>
-                            <span class="problem-title">21. Merge Two Sorted Lists</span>
+                            <span class="problem-title">21. Merge Two Sorted Lists</span><span class="pattern-tag">linked-list</span>
                             <a href="https://leetcode.com/problems/merge-two-sorted-lists/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -1958,10 +2259,9 @@ sb.append(<span class="string">"!"</span>);
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="linked-list" data-difficulty="easy"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-easy">Easy</span>
-                            <span class="problem-title">141. Linked List Cycle</span>
+                            <span class="problem-title">141. Linked List Cycle</span><span class="pattern-tag">linked-list</span>
                             <a href="https://leetcode.com/problems/linked-list-cycle/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -2008,10 +2308,9 @@ sb.append(<span class="string">"!"</span>);
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="linked-list" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">19. Remove Nth Node From End</span>
+                            <span class="problem-title">19. Remove Nth Node From End</span><span class="pattern-tag">linked-list</span>
                             <a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -2054,10 +2353,9 @@ sb.append(<span class="string">"!"</span>);
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="linked-list" data-difficulty="hard"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-hard">Hard</span>
-                            <span class="problem-title">23. Merge k Sorted Lists</span>
+                            <span class="problem-title">23. Merge k Sorted Lists</span><span class="pattern-tag">linked-list</span>
                             <a href="https://leetcode.com/problems/merge-k-sorted-lists/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -2189,10 +2487,9 @@ is_empty = <span class="keyword">len</span>(stack) == <span class="number">0</sp
 
                 <h3>🎯 LeetCode Problems</h3>
                 <div class="problem-list">
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="stack" data-difficulty="easy"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-easy">Easy</span>
-                            <span class="problem-title">20. Valid Parentheses</span>
+                            <span class="problem-title">20. Valid Parentheses</span><span class="pattern-tag">stack</span>
                             <a href="https://leetcode.com/problems/valid-parentheses/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -2219,10 +2516,9 @@ is_empty = <span class="keyword">len</span>(stack) == <span class="number">0</sp
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="stack" data-difficulty="easy"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-easy">Easy</span>
-                            <span class="problem-title">155. Min Stack</span>
+                            <span class="problem-title">155. Min Stack</span><span class="pattern-tag">stack</span>
                             <a href="https://leetcode.com/problems/min-stack/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -2257,10 +2553,9 @@ is_empty = <span class="keyword">len</span>(stack) == <span class="number">0</sp
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="stack" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">739. Daily Temperatures</span>
+                            <span class="problem-title">739. Daily Temperatures</span><span class="pattern-tag">stack</span>
                             <a href="https://leetcode.com/problems/daily-temperatures/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -2318,10 +2613,9 @@ is_empty = <span class="keyword">len</span>(stack) == <span class="number">0</sp
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="stack" data-difficulty="hard"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-hard">Hard</span>
-                            <span class="problem-title">84. Largest Rectangle in Histogram</span>
+                            <span class="problem-title">84. Largest Rectangle in Histogram</span><span class="pattern-tag">stack</span>
                             <a href="https://leetcode.com/problems/largest-rectangle-in-histogram/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -2520,10 +2814,9 @@ groups[<span class="string">'key'</span>].append(<span class="number">1</span>) 
 
                 <h3>🎯 LeetCode Problems</h3>
                 <div class="problem-list">
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="heap" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">347. Top K Frequent Elements</span>
+                            <span class="problem-title">347. Top K Frequent Elements</span><span class="pattern-tag">heap</span>
                             <a href="https://leetcode.com/problems/top-k-frequent-elements/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -2569,10 +2862,9 @@ groups[<span class="string">'key'</span>].append(<span class="number">1</span>) 
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="hash-map" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">146. LRU Cache</span>
+                            <span class="problem-title">146. LRU Cache</span><span class="pattern-tag">hash-map</span>
                             <a href="https://leetcode.com/problems/lru-cache/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -2730,10 +3022,9 @@ groups[<span class="string">'key'</span>].append(<span class="number">1</span>) 
 
                 <h3>🎯 LeetCode Problems</h3>
                 <div class="problem-list">
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="tree" data-difficulty="easy"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-easy">Easy</span>
-                            <span class="problem-title">104. Maximum Depth of Binary Tree</span>
+                            <span class="problem-title">104. Maximum Depth of Binary Tree</span><span class="pattern-tag">tree</span>
                             <a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -2751,10 +3042,9 @@ groups[<span class="string">'key'</span>].append(<span class="number">1</span>) 
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="tree" data-difficulty="easy"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-easy">Easy</span>
-                            <span class="problem-title">226. Invert Binary Tree</span>
+                            <span class="problem-title">226. Invert Binary Tree</span><span class="pattern-tag">tree</span>
                             <a href="https://leetcode.com/problems/invert-binary-tree/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -2780,10 +3070,9 @@ groups[<span class="string">'key'</span>].append(<span class="number">1</span>) 
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="tree" data-difficulty="easy"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-easy">Easy</span>
-                            <span class="problem-title">100. Same Tree</span>
+                            <span class="problem-title">100. Same Tree</span><span class="pattern-tag">tree</span>
                             <a href="https://leetcode.com/problems/same-tree/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -2803,10 +3092,9 @@ groups[<span class="string">'key'</span>].append(<span class="number">1</span>) 
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="tree" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">102. Binary Tree Level Order Traversal</span>
+                            <span class="problem-title">102. Binary Tree Level Order Traversal</span><span class="pattern-tag">tree</span>
                             <a href="https://leetcode.com/problems/binary-tree-level-order-traversal/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -2845,10 +3133,9 @@ groups[<span class="string">'key'</span>].append(<span class="number">1</span>) 
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="tree" data-difficulty="hard"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-hard">Hard</span>
-                            <span class="problem-title">124. Binary Tree Maximum Path Sum</span>
+                            <span class="problem-title">124. Binary Tree Maximum Path Sum</span><span class="pattern-tag">tree</span>
                             <a href="https://leetcode.com/problems/binary-tree-maximum-path-sum/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -2924,10 +3211,9 @@ groups[<span class="string">'key'</span>].append(<span class="number">1</span>) 
 
                 <h3>🎯 LeetCode Problems</h3>
                 <div class="problem-list">
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="tree" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">98. Validate Binary Search Tree</span>
+                            <span class="problem-title">98. Validate Binary Search Tree</span><span class="pattern-tag">tree</span>
                             <a href="https://leetcode.com/problems/validate-binary-search-tree/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -2953,10 +3239,9 @@ groups[<span class="string">'key'</span>].append(<span class="number">1</span>) 
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="tree" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">230. Kth Smallest Element in a BST</span>
+                            <span class="problem-title">230. Kth Smallest Element in a BST</span><span class="pattern-tag">tree</span>
                             <a href="https://leetcode.com/problems/kth-smallest-element-in-a-bst/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -3180,10 +3465,9 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
 
                 <h3>🎯 LeetCode Problems</h3>
                 <div class="problem-list">
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="heap" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">215. Kth Largest Element in an Array</span>
+                            <span class="problem-title">215. Kth Largest Element in an Array</span><span class="pattern-tag">heap</span>
                             <a href="https://leetcode.com/problems/kth-largest-element-in-an-array/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -3209,10 +3493,9 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="heap" data-difficulty="hard"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-hard">Hard</span>
-                            <span class="problem-title">295. Find Median from Data Stream</span>
+                            <span class="problem-title">295. Find Median from Data Stream</span><span class="pattern-tag">heap</span>
                             <a href="https://leetcode.com/problems/find-median-from-data-stream/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -3272,10 +3555,9 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="graph" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">133. Clone Graph</span>
+                            <span class="problem-title">133. Clone Graph</span><span class="pattern-tag">graph</span>
                             <a href="https://leetcode.com/problems/clone-graph/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -3433,10 +3715,9 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
 
                 <h3>🎯 LeetCode Problems</h3>
                 <div class="problem-list">
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="dp" data-difficulty="easy"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-easy">Easy</span>
-                            <span class="problem-title">70. Climbing Stairs</span>
+                            <span class="problem-title">70. Climbing Stairs</span><span class="pattern-tag">dp</span>
                             <a href="https://leetcode.com/problems/climbing-stairs/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -3471,10 +3752,9 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="dp" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">322. Coin Change</span>
+                            <span class="problem-title">322. Coin Change</span><span class="pattern-tag">dp</span>
                             <a href="https://leetcode.com/problems/coin-change/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -3509,10 +3789,9 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="dp" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">300. Longest Increasing Subsequence</span>
+                            <span class="problem-title">300. Longest Increasing Subsequence</span><span class="pattern-tag">dp</span>
                             <a href="https://leetcode.com/problems/longest-increasing-subsequence/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -3539,10 +3818,9 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="dp" data-difficulty="hard"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-hard">Hard</span>
-                            <span class="problem-title">72. Edit Distance</span>
+                            <span class="problem-title">72. Edit Distance</span><span class="pattern-tag">dp</span>
                             <a href="https://leetcode.com/problems/edit-distance/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -3624,10 +3902,9 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
 
                 <h3>🎯 LeetCode Problems</h3>
                 <div class="problem-list">
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="graph" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">200. Number of Islands</span>
+                            <span class="problem-title">200. Number of Islands</span><span class="pattern-tag">graph</span>
                             <a href="https://leetcode.com/problems/number-of-islands/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -3699,10 +3976,9 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="graph" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">207. Course Schedule</span>
+                            <span class="problem-title">207. Course Schedule</span><span class="pattern-tag">graph</span>
                             <a href="https://leetcode.com/problems/course-schedule/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -3756,7 +4032,542 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
         </section>
 
 
-        <!-- Expert Level Header -->
+        
+        <!-- Tries -->
+        <section class="section" id="trie">
+            <div class="section-header">
+                <h2>🌳 Tries (Prefix Trees)</h2>
+                <span class="badge badge-advanced">Advanced</span>
+            </div>
+            <div class="section-body">
+                <h3>What is a Trie?</h3>
+                <p>A tree-like data structure for efficient string operations. Each node represents a character, and paths from root to nodes represent prefixes. Excellent for autocomplete, spell checkers, and prefix matching.</p>
+
+                <div class="applications">
+                    <h5>🌍 When to Use Tries</h5>
+                    <ul>
+                        <li><strong>Autocomplete:</strong> Find all words with given prefix</li>
+                        <li><strong>Spell Checker:</strong> Check if word exists in dictionary</li>
+                        <li><strong>Word Search:</strong> Search words in a grid</li>
+                        <li><strong>IP Routing:</strong> Longest prefix matching</li>
+                    </ul>
+                </div>
+
+                <h3>📹 Video Tutorials</h3>
+                <div class="link-list">
+                    <a href="https://www.youtube.com/watch?v=oobqoCJlHA0" target="_blank" class="link-btn">📺 NeetCode - Implement Trie</a>
+                    <a href="https://www.youtube.com/watch?v=giiaIofn31A" target="_blank" class="link-btn">📺 Abdul Bari - Trie</a>
+                </div>
+
+                <h3>💻 Implementation</h3>
+                <div class="code-tabs">
+                    <button class="code-tab active" onclick="switchTab(this, 'trie-py')">Python</button>
+                </div>
+                <div class="code-block">
+                    <code class="code-content active" id="trie-py"><span class="keyword">class</span> <span class="class-name">TrieNode</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self):
+        self.children = {}  <span class="comment"># char -> TrieNode</span>
+        self.is_end = <span class="keyword">False</span>
+
+<span class="keyword">class</span> <span class="class-name">Trie</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self):
+        self.root = TrieNode()
+    
+    <span class="keyword">def</span> <span class="function">insert</span>(self, word):
+        node = self.root
+        <span class="keyword">for</span> char <span class="keyword">in</span> word:
+            <span class="keyword">if</span> char <span class="keyword">not in</span> node.children:
+                node.children[char] = TrieNode()
+            node = node.children[char]
+        node.is_end = <span class="keyword">True</span>
+    
+    <span class="keyword">def</span> <span class="function">search</span>(self, word):
+        node = self._find_node(word)
+        <span class="keyword">return</span> node <span class="keyword">is not</span> <span class="keyword">None</span> <span class="keyword">and</span> node.is_end
+    
+    <span class="keyword">def</span> <span class="function">startsWith</span>(self, prefix):
+        <span class="keyword">return</span> self._find_node(prefix) <span class="keyword">is not</span> <span class="keyword">None</span>
+    
+    <span class="keyword">def</span> <span class="function">_find_node</span>(self, prefix):
+        node = self.root
+        <span class="keyword">for</span> char <span class="keyword">in</span> prefix:
+            <span class="keyword">if</span> char <span class="keyword">not in</span> node.children:
+                <span class="keyword">return</span> <span class="keyword">None</span>
+            node = node.children[char]
+        <span class="keyword">return</span> node
+
+<span class="comment"># Insert/Search: O(m) where m is word length</span></code>
+                </div>
+
+                <h3>🎯 LeetCode Problems</h3>
+                <div class="problem-list">
+                    <div class="problem-item" data-pattern="trie" data-difficulty="medium">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-medium">Medium</span>
+                            <span class="problem-title">208. Implement Trie (Prefix Tree)</span>
+                            <span class="pattern-tag">trie</span>
+                            <a href="https://leetcode.com/problems/implement-trie-prefix-tree/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Implement a trie with insert, search, and startsWith methods.</p>
+                            <p><strong>Pattern:</strong> Basic Trie Implementation</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>TrieNode:</strong> Has children dict and is_end flag.</li>
+                                    <li><strong>Insert:</strong> Create nodes for each char, mark last as end.</li>
+                                    <li><strong>Search:</strong> Traverse chars, check if final node is end.</li>
+                                    <li><strong>StartsWith:</strong> Same as search but don't check is_end.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="problem-item" data-pattern="trie" data-difficulty="medium">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-medium">Medium</span>
+                            <span class="problem-title">211. Design Add and Search Words Data Structure</span>
+                            <span class="pattern-tag">trie</span>
+                            <a href="https://leetcode.com/problems/design-add-and-search-words-data-structure/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Design data structure supporting '.' wildcard in search.</p>
+                            <p><strong>Pattern:</strong> Trie + DFS for wildcards</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Add Word:</strong> Standard trie insert.</li>
+                                    <li><strong>Search with '.':</strong> When '.', try all children (DFS).</li>
+                                    <li><strong>Normal char:</strong> Follow the specific child.</li>
+                                    <li><strong>Base Case:</strong> Reached end of word, check is_end.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="problem-item" data-pattern="trie" data-difficulty="hard">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-hard">Hard</span>
+                            <span class="problem-title">212. Word Search II</span>
+                            <span class="pattern-tag">trie</span>
+                            <a href="https://leetcode.com/problems/word-search-ii/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Find all words from dictionary in a 2D board.</p>
+                            <p><strong>Pattern:</strong> Trie + Backtracking DFS</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Build Trie:</strong> Insert all words into trie.</li>
+                                    <li><strong>DFS from each cell:</strong> Explore all 4 directions.</li>
+                                    <li><strong>Prune:</strong> Stop if prefix not in trie.</li>
+                                    <li><strong>Found Word:</strong> When is_end is True, add to result.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Union Find -->
+        <section class="section" id="union-find">
+            <div class="section-header">
+                <h2>🔗 Union-Find (Disjoint Set)</h2>
+                <span class="badge badge-advanced">Advanced</span>
+            </div>
+            <div class="section-body">
+                <h3>What is Union-Find?</h3>
+                <p>A data structure that tracks elements partitioned into disjoint sets. Supports two operations: Find (which set an element belongs to) and Union (merge two sets). Used for connectivity problems.</p>
+
+                <div class="applications">
+                    <h5>🌍 When to Use Union-Find</h5>
+                    <ul>
+                        <li><strong>Connectivity:</strong> Are two nodes connected?</li>
+                        <li><strong>Counting Components:</strong> How many separate groups?</li>
+                        <li><strong>Cycle Detection:</strong> Does adding edge create cycle?</li>
+                        <li><strong>Kruskal's MST:</strong> Minimum spanning tree</li>
+                    </ul>
+                </div>
+
+                <h3>📹 Video Tutorials</h3>
+                <div class="link-list">
+                    <a href="https://www.youtube.com/watch?v=ibjEGG7ylHk" target="_blank" class="link-btn">📺 NeetCode - Union Find</a>
+                    <a href="https://www.youtube.com/watch?v=ayW5B2W9hfo" target="_blank" class="link-btn">📺 Abdul Bari - Disjoint Sets</a>
+                </div>
+
+                <h3>�� Implementation</h3>
+                <div class="code-tabs">
+                    <button class="code-tab active" onclick="switchTab(this, 'uf-py')">Python</button>
+                </div>
+                <div class="code-block">
+                    <code class="code-content active" id="uf-py"><span class="keyword">class</span> <span class="class-name">UnionFind</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, n):
+        self.parent = list(range(n))  <span class="comment"># parent[i] = i initially</span>
+        self.rank = [<span class="number">0</span>] * n        <span class="comment"># for union by rank</span>
+        self.count = n                <span class="comment"># number of components</span>
+    
+    <span class="keyword">def</span> <span class="function">find</span>(self, x):
+        <span class="comment"># Path compression</span>
+        <span class="keyword">if</span> self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        <span class="keyword">return</span> self.parent[x]
+    
+    <span class="keyword">def</span> <span class="function">union</span>(self, x, y):
+        px, py = self.find(x), self.find(y)
+        <span class="keyword">if</span> px == py:
+            <span class="keyword">return</span> <span class="keyword">False</span>  <span class="comment"># Already connected</span>
+        
+        <span class="comment"># Union by rank</span>
+        <span class="keyword">if</span> self.rank[px] < self.rank[py]:
+            px, py = py, px
+        self.parent[py] = px
+        <span class="keyword">if</span> self.rank[px] == self.rank[py]:
+            self.rank[px] += <span class="number">1</span>
+        
+        self.count -= <span class="number">1</span>
+        <span class="keyword">return</span> <span class="keyword">True</span>
+    
+    <span class="keyword">def</span> <span class="function">connected</span>(self, x, y):
+        <span class="keyword">return</span> self.find(x) == self.find(y)
+
+<span class="comment"># Operations: O(α(n)) ≈ O(1) amortized</span></code>
+                </div>
+
+                <h3>🎯 LeetCode Problems</h3>
+                <div class="problem-list">
+                    <div class="problem-item" data-pattern="union-find" data-difficulty="medium">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-medium">Medium</span>
+                            <span class="problem-title">200. Number of Islands (Union-Find)</span>
+                            <span class="pattern-tag">union-find</span>
+                            <a href="https://leetcode.com/problems/number-of-islands/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Count number of islands in a 2D grid.</p>
+                            <p><strong>Pattern:</strong> Union-Find alternative to DFS</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Initialize:</strong> Each '1' cell is its own component.</li>
+                                    <li><strong>Union Adjacent:</strong> Connect neighboring '1' cells.</li>
+                                    <li><strong>Count:</strong> Number of unique roots = number of islands.</li>
+                                    <li><strong>2D to 1D:</strong> Index = row * cols + col.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="problem-item" data-pattern="union-find" data-difficulty="medium">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-medium">Medium</span>
+                            <span class="problem-title">547. Number of Provinces</span>
+                            <span class="pattern-tag">union-find</span>
+                            <a href="https://leetcode.com/problems/number-of-provinces/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Find number of connected components in adjacency matrix.</p>
+                            <p><strong>Pattern:</strong> Classic Union-Find</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Initialize:</strong> n cities, n components.</li>
+                                    <li><strong>Process Connections:</strong> Union connected cities.</li>
+                                    <li><strong>Result:</strong> Count remaining components.</li>
+                                    <li><strong>Alternative:</strong> DFS/BFS also works.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="problem-item" data-pattern="union-find" data-difficulty="medium">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-medium">Medium</span>
+                            <span class="problem-title">684. Redundant Connection</span>
+                            <span class="pattern-tag">union-find</span>
+                            <a href="https://leetcode.com/problems/redundant-connection/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Find edge that creates a cycle in undirected graph.</p>
+                            <p><strong>Pattern:</strong> Union-Find Cycle Detection</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Process edges:</strong> Try to union each edge.</li>
+                                    <li><strong>Cycle Found:</strong> If nodes already connected, this edge is redundant.</li>
+                                    <li><strong>Return Last:</strong> Return the last such edge.</li>
+                                    <li><strong>Why Union-Find:</strong> Efficiently tracks connectivity.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Greedy Algorithms -->
+        <section class="section" id="greedy">
+            <div class="section-header">
+                <h2>💰 Greedy Algorithms</h2>
+                <span class="badge badge-advanced">Advanced</span>
+            </div>
+            <div class="section-body">
+                <h3>What is Greedy?</h3>
+                <p>A strategy that makes the locally optimal choice at each step, hoping to find the global optimum. Works when local optimal choices lead to global optimal solution. Key: prove the greedy choice property.</p>
+
+                <div class="applications">
+                    <h5>🌍 When Greedy Works</h5>
+                    <ul>
+                        <li><strong>Optimal Substructure:</strong> Optimal solution contains optimal solutions to subproblems</li>
+                        <li><strong>Greedy Choice:</strong> Local optimal choice leads to global optimal</li>
+                        <li><strong>Common Problems:</strong> Intervals, scheduling, Huffman coding</li>
+                        <li><strong>Warning:</strong> Greedy doesn't always work - verify!</li>
+                    </ul>
+                </div>
+
+                <h3>📹 Video Tutorials</h3>
+                <div class="link-list">
+                    <a href="https://www.youtube.com/watch?v=bC7o8P_Ste4" target="_blank" class="link-btn">📺 NeetCode - Greedy Algorithms</a>
+                    <a href="https://www.youtube.com/watch?v=ARvQcqJ_-NY" target="_blank" class="link-btn">📺 Abdul Bari - Greedy</a>
+                </div>
+
+                <h3>🎯 LeetCode Problems</h3>
+                <div class="problem-list">
+                    <div class="problem-item" data-pattern="greedy" data-difficulty="medium">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-medium">Medium</span>
+                            <span class="problem-title">55. Jump Game</span>
+                            <span class="pattern-tag">greedy</span>
+                            <a href="https://leetcode.com/problems/jump-game/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Determine if you can reach the last index.</p>
+                            <p><strong>Pattern:</strong> Track maximum reachable index</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Track maxReach:</strong> Farthest index we can reach.</li>
+                                    <li><strong>At each i:</strong> maxReach = max(maxReach, i + nums[i])</li>
+                                    <li><strong>If i > maxReach:</strong> Can't reach this index, return False.</li>
+                                    <li><strong>If maxReach >= n-1:</strong> Can reach end, return True.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="problem-item" data-pattern="greedy" data-difficulty="medium">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-medium">Medium</span>
+                            <span class="problem-title">45. Jump Game II</span>
+                            <span class="pattern-tag">greedy</span>
+                            <a href="https://leetcode.com/problems/jump-game-ii/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Find minimum jumps to reach the last index.</p>
+                            <p><strong>Pattern:</strong> BFS-like level by level expansion</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Track:</strong> Current level end and next level farthest.</li>
+                                    <li><strong>At each i:</strong> Update farthest reachable.</li>
+                                    <li><strong>When i == currentEnd:</strong> Must jump, update currentEnd.</li>
+                                    <li><strong>Count jumps:</strong> Increment when we reach current level end.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="problem-item" data-pattern="greedy" data-difficulty="medium">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-medium">Medium</span>
+                            <span class="problem-title">134. Gas Station</span>
+                            <span class="pattern-tag">greedy</span>
+                            <a href="https://leetcode.com/problems/gas-station/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Find starting gas station to complete the circuit.</p>
+                            <p><strong>Pattern:</strong> Track deficit and reset start</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Check Feasibility:</strong> Total gas >= total cost.</li>
+                                    <li><strong>Track Tank:</strong> Current tank = gas[i] - cost[i].</li>
+                                    <li><strong>If tank < 0:</strong> Can't start from any previous station.</li>
+                                    <li><strong>Reset:</strong> Start from i+1, reset tank.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="problem-item" data-pattern="greedy" data-difficulty="hard">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-hard">Hard</span>
+                            <span class="problem-title">135. Candy</span>
+                            <span class="pattern-tag">greedy</span>
+                            <a href="https://leetcode.com/problems/candy/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Distribute minimum candies based on ratings.</p>
+                            <p><strong>Pattern:</strong> Two-pass greedy</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Initialize:</strong> Everyone gets 1 candy.</li>
+                                    <li><strong>Left Pass:</strong> If rating[i] > rating[i-1], candy[i] = candy[i-1] + 1.</li>
+                                    <li><strong>Right Pass:</strong> If rating[i] > rating[i+1], candy[i] = max(candy[i], candy[i+1] + 1).</li>
+                                    <li><strong>Sum:</strong> Total candies needed.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Bit Manipulation -->
+        <section class="section" id="bit-manipulation">
+            <div class="section-header">
+                <h2>🔢 Bit Manipulation</h2>
+                <span class="badge badge-advanced">Advanced</span>
+            </div>
+            <div class="section-body">
+                <h3>What is Bit Manipulation?</h3>
+                <p>Operating directly on binary representations of numbers. Extremely efficient for certain problems. Key operations: AND (&), OR (|), XOR (^), NOT (~), Left Shift (<<), Right Shift (>>).</p>
+
+                <div class="applications">
+                    <h5>🔧 Essential Bit Tricks</h5>
+                    <ul>
+                        <li><strong>n & (n-1):</strong> Remove rightmost 1 bit (count set bits)</li>
+                        <li><strong>n & (-n):</strong> Isolate rightmost 1 bit</li>
+                        <li><strong>n ^ n = 0:</strong> XOR same numbers cancel out</li>
+                        <li><strong>n & 1:</strong> Check if odd (last bit is 1)</li>
+                        <li><strong>n << 1:</strong> Multiply by 2</li>
+                        <li><strong>n >> 1:</strong> Divide by 2</li>
+                    </ul>
+                </div>
+
+                <h3>📹 Video Tutorials</h3>
+                <div class="link-list">
+                    <a href="https://www.youtube.com/watch?v=5Km3utixwZs" target="_blank" class="link-btn">📺 NeetCode - Bit Manipulation</a>
+                </div>
+
+                <h3>💻 Common Patterns</h3>
+                <div class="code-tabs">
+                    <button class="code-tab active" onclick="switchTab(this, 'bit-py')">Python</button>
+                </div>
+                <div class="code-block">
+                    <code class="code-content active" id="bit-py"><span class="comment"># Count set bits (1s)</span>
+<span class="keyword">def</span> <span class="function">count_bits</span>(n):
+    count = <span class="number">0</span>
+    <span class="keyword">while</span> n:
+        n &= (n - <span class="number">1</span>)  <span class="comment"># Remove rightmost 1</span>
+        count += <span class="number">1</span>
+    <span class="keyword">return</span> count
+
+<span class="comment"># Check if power of 2</span>
+<span class="keyword">def</span> <span class="function">is_power_of_two</span>(n):
+    <span class="keyword">return</span> n > <span class="number">0</span> <span class="keyword">and</span> (n & (n - <span class="number">1</span>)) == <span class="number">0</span>
+
+<span class="comment"># Find single number (others appear twice)</span>
+<span class="keyword">def</span> <span class="function">single_number</span>(nums):
+    result = <span class="number">0</span>
+    <span class="keyword">for</span> num <span class="keyword">in</span> nums:
+        result ^= num  <span class="comment"># XOR cancels pairs</span>
+    <span class="keyword">return</span> result
+
+<span class="comment"># Get/Set/Clear bit at position i</span>
+get_bit = <span class="keyword">lambda</span> n, i: (n >> i) & <span class="number">1</span>
+set_bit = <span class="keyword">lambda</span> n, i: n | (<span class="number">1</span> << i)
+clear_bit = <span class="keyword">lambda</span> n, i: n & ~(<span class="number">1</span> << i)</code>
+                </div>
+
+                <h3>🎯 LeetCode Problems</h3>
+                <div class="problem-list">
+                    <div class="problem-item" data-pattern="bit" data-difficulty="easy">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-easy">Easy</span>
+                            <span class="problem-title">136. Single Number</span>
+                            <span class="pattern-tag">bit</span>
+                            <a href="https://leetcode.com/problems/single-number/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Find the single number where every other appears twice.</p>
+                            <p><strong>Pattern:</strong> XOR all numbers</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>XOR Property:</strong> a ^ a = 0, a ^ 0 = a</li>
+                                    <li><strong>XOR all:</strong> Pairs cancel out, single remains.</li>
+                                    <li><strong>Time:</strong> O(n), Space: O(1)</li>
+                                    <li><strong>No extra space needed!</strong></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="problem-item" data-pattern="bit" data-difficulty="easy">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-easy">Easy</span>
+                            <span class="problem-title">191. Number of 1 Bits</span>
+                            <span class="pattern-tag">bit</span>
+                            <a href="https://leetcode.com/problems/number-of-1-bits/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Count the number of 1 bits (Hamming weight).</p>
+                            <p><strong>Pattern:</strong> n & (n-1) trick</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>n & (n-1):</strong> Removes rightmost 1 bit.</li>
+                                    <li><strong>Count:</strong> How many times until n becomes 0.</li>
+                                    <li><strong>Alternative:</strong> Check each bit with n & 1, then n >>= 1.</li>
+                                    <li><strong>Time:</strong> O(number of 1 bits)</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="problem-item" data-pattern="bit" data-difficulty="medium">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-medium">Medium</span>
+                            <span class="problem-title">371. Sum of Two Integers</span>
+                            <span class="pattern-tag">bit</span>
+                            <a href="https://leetcode.com/problems/sum-of-two-integers/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Add two integers without + or - operators.</p>
+                            <p><strong>Pattern:</strong> XOR for sum, AND for carry</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>XOR (a ^ b):</strong> Sum without carry.</li>
+                                    <li><strong>AND (a & b) << 1:</strong> Carry bits.</li>
+                                    <li><strong>Repeat:</strong> Until no carry left.</li>
+                                    <li><strong>Handle negatives:</strong> Use mask for Python.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="problem-item" data-pattern="bit" data-difficulty="medium">
+                        <div class="problem-header" onclick="toggleProblem(this)">
+                            <span class="badge badge-medium">Medium</span>
+                            <span class="problem-title">338. Counting Bits</span>
+                            <span class="pattern-tag">bit</span>
+                            <a href="https://leetcode.com/problems/counting-bits/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
+                        </div>
+                        <div class="problem-content">
+                            <p><strong>Problem:</strong> Count bits for all numbers from 0 to n.</p>
+                            <p><strong>Pattern:</strong> DP with bit manipulation</p>
+                            <div class="thought-process">
+                                <h4>🧠 Thought Process</h4>
+                                <ol>
+                                    <li><strong>Pattern:</strong> dp[i] = dp[i >> 1] + (i & 1)</li>
+                                    <li><strong>Why:</strong> i >> 1 removes last bit, (i & 1) adds it back if it was 1.</li>
+                                    <li><strong>Alternative:</strong> dp[i] = dp[i & (i-1)] + 1</li>
+                                    <li><strong>Time:</strong> O(n), Space: O(n)</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!-- Expert Level Header -->
         <section class="section" id="expert">
             <div class="section-header">
                 <h2>🏆 Expert Level</h2>
@@ -3809,10 +4620,9 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
 
                 <h3>🎯 LeetCode Problems</h3>
                 <div class="problem-list">
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="backtracking" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">78. Subsets</span>
+                            <span class="problem-title">78. Subsets</span><span class="pattern-tag">backtracking</span>
                             <a href="https://leetcode.com/problems/subsets/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -3850,10 +4660,9 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
                         </div>
                     </div>
 
-                    <div class="problem-item">
-                        <div class="problem-header" onclick="toggleProblem(this)">
+                    <div class="problem-item"> data-pattern="backtracking" data-difficulty="medium"<div class="problem-header" onclick="toggleProblem(this)">
                             <span class="badge badge-medium">Medium</span>
-                            <span class="problem-title">46. Permutations</span>
+                            <span class="problem-title">46. Permutations</span><span class="pattern-tag">backtracking</span>
                             <a href="https://leetcode.com/problems/permutations/" target="_blank" class="link-btn" onclick="event.stopPropagation()">LeetCode</a>
                         </div>
                         <div class="problem-content">
@@ -3962,7 +4771,81 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
     </footer>
 
     <script>
-        // Toggle problem solution visibility
+        
+        // Filter state
+        let currentDifficulty = 'all';
+        let currentPattern = 'all';
+        let searchQuery = '';
+
+        // Initialize filters on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateFilterCounts();
+        });
+
+        // Search and filter problems
+        function filterProblems() {
+            searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            applyFilters();
+        }
+
+        // Set difficulty filter
+        function setDifficultyFilter(difficulty) {
+            currentDifficulty = difficulty;
+            // Update button states
+            document.querySelectorAll('#difficultyFilters .filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.difficulty === difficulty) btn.classList.add('active');
+            });
+            applyFilters();
+        }
+
+        // Set pattern filter
+        function setPatternFilter(pattern) {
+            currentPattern = pattern;
+            // Update button states
+            document.querySelectorAll('#patternFilters .filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.pattern === pattern) btn.classList.add('active');
+            });
+            applyFilters();
+        }
+
+        // Apply all filters
+        function applyFilters() {
+            const problems = document.querySelectorAll('.problem-item');
+            let visibleCount = 0;
+
+            problems.forEach(problem => {
+                const title = problem.querySelector('.problem-title')?.textContent.toLowerCase() || '';
+                const difficulty = problem.dataset.difficulty || '';
+                const pattern = problem.dataset.pattern || '';
+                const content = problem.querySelector('.problem-content')?.textContent.toLowerCase() || '';
+
+                // Check all conditions
+                const matchesSearch = searchQuery === '' || title.includes(searchQuery) || content.includes(searchQuery);
+                const matchesDifficulty = currentDifficulty === 'all' || difficulty === currentDifficulty;
+                const matchesPattern = currentPattern === 'all' || pattern === currentPattern;
+
+                if (matchesSearch && matchesDifficulty && matchesPattern) {
+                    problem.classList.remove('problem-hidden');
+                    visibleCount++;
+                } else {
+                    problem.classList.add('problem-hidden');
+                }
+            });
+
+            // Update count
+            document.getElementById('visibleCount').textContent = visibleCount;
+        }
+
+        // Update filter counts on load
+        function updateFilterCounts() {
+            const problems = document.querySelectorAll('.problem-item');
+            document.getElementById('totalProblems').textContent = problems.length;
+            document.getElementById('visibleCount').textContent = problems.length;
+        }
+
+// Toggle problem solution visibility
         function toggleProblem(header) {
             const problemItem = header.parentElement;
             problemItem.classList.toggle('open');
