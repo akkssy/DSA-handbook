@@ -4777,6 +4777,42 @@ clear_bit = <span class="keyword">lambda</span> n, i: n & ~(<span class="number"
         let currentPattern = 'all';
         let searchQuery = '';
 
+        // Switch code tabs (Python/Java/C++)
+        function switchTab(button, tabId) {
+            // Get the code block container
+            const codeBlock = button.closest('.section-body') || button.parentElement.parentElement;
+            
+            // Remove active from all tabs in this section
+            const tabs = button.parentElement.querySelectorAll('.code-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Add active to clicked tab
+            button.classList.add('active');
+            
+            // Hide all code content in this section
+            const codeContents = codeBlock.querySelectorAll('.code-content');
+            codeContents.forEach(code => code.classList.remove('active'));
+            
+            // Show the selected code content
+            const selectedCode = document.getElementById(tabId);
+            if (selectedCode) {
+                selectedCode.classList.add('active');
+            }
+        }
+
+        // Toggle navigation menu (mobile)
+        function toggleNav() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('open');
+        }
+
+        // Toggle table of contents
+        function toggleToc() {
+            const toc = document.getElementById('toc');
+            toc.classList.toggle('visible');
+            toc.classList.toggle('hidden');
+        }
+
         // Initialize filters on page load
         document.addEventListener('DOMContentLoaded', function() {
             updateFilterCounts();
