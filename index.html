@@ -3516,8 +3516,8 @@ k_smallest = heapq.nsmallest(<span class="number">3</span>, arr)</code>
     <script>
         // Toggle problem solution visibility
         function toggleProblem(header) {
-            const content = header.nextElementSibling;
-            content.classList.toggle('active');
+            const problemItem = header.parentElement;
+            problemItem.classList.toggle('open');
         }
 
         // Update progress tracking
