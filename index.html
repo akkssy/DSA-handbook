@@ -4783,9 +4783,12 @@ clear_bit = <span class="keyword">lambda</span> n, i: n & ~(<span class="number"
             const tabsContainer = button.parentElement;
             
             // Get the code block (next sibling of tabs container)
-            const codeBlock = tabsContainer.nextElementSibling;
+            let codeBlock = tabsContainer.nextElementSibling;
+            while (codeBlock && !codeBlock.classList.contains('code-block')) {
+                codeBlock = codeBlock.nextElementSibling;
+            }
             
-            // Remove active from all tabs
+            // Remove active from all tabs in this group
             tabsContainer.querySelectorAll('.code-tab').forEach(tab => {
                 tab.classList.remove('active');
             });
@@ -4795,15 +4798,18 @@ clear_bit = <span class="keyword">lambda</span> n, i: n & ~(<span class="number"
             
             // Hide all code content in the code block
             if (codeBlock) {
-                codeBlock.querySelectorAll('.code-content').forEach(code => {
+                const codeContents = codeBlock.querySelectorAll('.code-content');
+                codeContents.forEach(code => {
                     code.classList.remove('active');
+                    code.style.display = 'none';
                 });
             }
             
-            // Show the selected code content
+            // Show the selected code content by ID
             const selectedCode = document.getElementById(tabId);
             if (selectedCode) {
                 selectedCode.classList.add('active');
+                selectedCode.style.display = 'block';
             }
         }
 
