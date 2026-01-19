@@ -1,0 +1,7 @@
+# robots.txt for DSA Mastery
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://akkssy.github.io/DSA-handbook/sitemap.xml
+
